@@ -7,6 +7,7 @@ class term extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // background
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
         elevation: 0,
       
