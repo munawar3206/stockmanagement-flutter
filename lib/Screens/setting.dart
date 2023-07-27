@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:stock/Screens/Sub%20Screens/account.dart';
-import 'package:stock/Screens/Sub%20Screens/term.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:stock/Screens/Sub%20Screens/term.dart';
 
 class setting extends StatefulWidget {
   const setting({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class setting extends StatefulWidget {
 
 class _settingState extends State<setting> {
   final List<ItemData> itemsList = [
-    ItemData(Icons.account_circle, 'Account'),
+    // ItemData(Icons.account_circle, 'Account'),
     ItemData(Icons.notes, 'Terms and Conditions'),
     ItemData(Icons.feedback, 'Send Feedback'),
     ItemData(Icons.restore, 'Reset App'),
@@ -79,19 +80,22 @@ class _settingState extends State<setting> {
 
   void _handleItemTap(ItemData pages) {
     switch (pages.name) {
-      case 'Account':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => account()),
-        );
-        break;
+      // case 'Account':
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => account()),
+      //   );
+      //   break;
       case 'Terms and Conditions':
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => term()),
         );
         break;
-      
+      case 'Exit':
+        exit(0);
+
+       
       default:
         break;
     }

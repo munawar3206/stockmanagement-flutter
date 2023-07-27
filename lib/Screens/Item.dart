@@ -14,7 +14,7 @@ class _itemState extends State<item> {
     'Product Name1',
     'Product Name2',
     'Product Name3',
-   ];
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,11 @@ class _itemState extends State<item> {
           style: GoogleFonts.acme(
             fontWeight: FontWeight.bold,
             color: const Color.fromARGB(255, 0, 0, 0),
+            
           ),
+        ),
+         iconTheme: IconThemeData(
+          color: const Color.fromARGB(255, 207, 216, 255),
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
@@ -68,13 +72,15 @@ class _itemState extends State<item> {
                       Card(
                         elevation: 10,
                         child: ListTile(
-                          leading: CircleAvatar(
-                            radius: 30,
-                          ),
+                          leading:Container(
+                      height: 50,
+                      width: 50,
+                      color: Color.fromARGB(255, 128, 69, 255),
+                    ),
                           title: Text(itemsList[index]),
                           subtitle: Text(
                             "Stall",
-                            style: TextStyle(color: Colors.red),
+                            style: TextStyle(color: Color.fromARGB(255, 0, 255, 4)),
                           ),
                           onTap: () {
                             Navigator.push(
@@ -88,7 +94,7 @@ class _itemState extends State<item> {
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: const Color.fromARGB(255, 255, 0, 0),
                             ),
                           ),
                         ),

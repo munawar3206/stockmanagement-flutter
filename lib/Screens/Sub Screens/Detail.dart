@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/Screens/Item.dart';
 
-
 class detail extends StatefulWidget {
   const detail({super.key});
 
@@ -32,9 +31,7 @@ class _detailState extends State<detail> {
                 onPressed: () {},
                 icon: Icon(Icons.delete),
               ),
-              IconButton(onPressed: () {
-                 
-              }, icon: Icon(Icons.edit)),
+              IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
               SizedBox(height: 10),
             ],
           )
@@ -46,8 +43,10 @@ class _detailState extends State<detail> {
           padding: const EdgeInsets.all(20.0),
           child: Card(
             child: ListTile(
-              leading: CircleAvatar(
-                radius: 30,
+              leading: Container(
+                height: 50,
+                width: 50,
+                color: Color.fromARGB(255, 147, 91, 244),
               ),
               title: Row(
                 children: [
@@ -55,83 +54,116 @@ class _detailState extends State<detail> {
                 ],
               ),
               subtitle: Text('Price: '),
-               trailing: Text(
-                
-                            '5',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
+              trailing: Text(
+                '5',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              ),
             ),
           ),
         ),
         SizedBox(
           height: 50,
         ),
-        ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-                title: Row(
-                  children: [
-                    const Text("Select Quantity"),
-                    SizedBox(
-                      width: 90,
-                    ),
-                    Row(
-                      children: [
-                        IconButton(onPressed: () {
-                         Navigator.of(ctx).pop();
-
-                        }, icon: Icon(Icons.close),color: Colors.black,),
-                      ],
-                    )
-                  ],
+        MaterialButton(
+  color: const Color.fromARGB(255, 0, 0, 255),
+  onPressed: () {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Row(
+          children: [
+            const Text("Select Quantity"),
+            SizedBox(
+              width: 50,
+            ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  icon: Icon(Icons.close),
+                  color: Color.fromARGB(255, 0, 0, 0),
                 ),
-                content: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text("Name"),
-                
-                    
-                  ],
-                  
+              ],
+            )
+          ],
+        ),
+        content: Row(
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              color: Color.fromARGB(255, 155, 49, 221),
+            ),
+            SizedBox(width: 10),
+            Text("Pen"),
+            Spacer(),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    // Handle minus button press
+                  },
+                  icon: Icon(Icons.remove),
+                  color: Color.fromARGB(255, 0, 0, 0),
                 ),
-                actions: <Widget>[
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 0, 64, 255),
-                      ),
-                      child: const Text(
-                        "OK",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
+                SizedBox(width: 10),
+                Text(
+                  "1", // Replace this with the actual value (you can use a variable)
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(width: 10),
+                IconButton(
+                  onPressed: () {
+                    // Handle plus button press
+                  },
+                  icon: Icon(Icons.add),
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ],
+            )
+          ],
+        ),
+        actions: <Widget>[
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Color.fromARGB(255, 0, 0, 255),
               ),
-            );
-          },
-          child: Column(
-            children: [
-              Icon(Icons.system_update_alt_outlined),
-              const SizedBox(width: 18),
-              const Text("UPDATED STOCK"),
-            ],
+              child: const Text(
+                "OK",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ),
-        )
+        ],
+      ),
+    );
+  },
+  child: Column(
+    children: [
+      Icon(
+        Icons.system_update_alt_outlined,
+        color: Colors.white,
+      ),
+      const SizedBox(width: 18),
+      Text(
+        "UPDATED STOCK",
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+    ],
+  ),
+)
       ]),
     );
   }
