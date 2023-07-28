@@ -20,6 +20,7 @@ class _itemState extends State<item> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
         title: Text(
@@ -30,9 +31,7 @@ class _itemState extends State<item> {
             
           ),
         ),
-         iconTheme: IconThemeData(
-          color: const Color.fromARGB(255, 207, 216, 255),
-        ),
+         
       ),
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
       body: Column(

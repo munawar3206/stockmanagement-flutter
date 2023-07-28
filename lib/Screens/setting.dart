@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stock/Screens/Sub%20Screens/About.dart';
 import 'package:stock/Screens/Sub%20Screens/term.dart';
 
 class setting extends StatefulWidget {
@@ -14,9 +15,9 @@ class setting extends StatefulWidget {
 
 class _settingState extends State<setting> {
   final List<ItemData> itemsList = [
-    // ItemData(Icons.account_circle, 'Account'),
+ 
     ItemData(Icons.notes, 'Terms and Conditions'),
-    ItemData(Icons.feedback, 'Send Feedback'),
+    ItemData(Icons.info_outlined, 'About'),
     ItemData(Icons.restore, 'Reset App'),
     ItemData(Icons.star, 'Rate App'),
     ItemData(Icons.exit_to_app, 'Exit'),
@@ -80,16 +81,16 @@ class _settingState extends State<setting> {
 
   void _handleItemTap(ItemData pages) {
     switch (pages.name) {
-      // case 'Account':
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => account()),
-      //   );
-      //   break;
+  
       case 'Terms and Conditions':
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => term()),
+        );
+        case 'About':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => about()),
         );
         break;
       case 'Exit':

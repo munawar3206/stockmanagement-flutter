@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/Screens/Item.dart';
+import 'package:stock/Screens/Sub%20Screens/update.dart';
 
 class detail extends StatefulWidget {
   const detail({super.key});
@@ -31,7 +32,12 @@ class _detailState extends State<detail> {
                 onPressed: () {},
                 icon: Icon(Icons.delete),
               ),
-              IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+              IconButton(onPressed: () {
+                Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => update()),
+                            );
+              }, icon: Icon(Icons.edit)),
               SizedBox(height: 10),
             ],
           )
@@ -107,20 +113,20 @@ class _detailState extends State<detail> {
               children: [
                 IconButton(
                   onPressed: () {
-                    // Handle minus button press
+                  
                   },
                   icon: Icon(Icons.remove),
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
                 SizedBox(width: 10),
                 Text(
-                  "1", // Replace this with the actual value (you can use a variable)
+                  "1", 
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(width: 10),
                 IconButton(
                   onPressed: () {
-                    // Handle plus button press
+                 
                   },
                   icon: Icon(Icons.add),
                   color: Color.fromARGB(255, 0, 0, 0),
