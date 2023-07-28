@@ -31,12 +31,10 @@ class term extends StatelessWidget {
 6.Analyzing Data: Users can analyze inventory data to make informed decisions, such as identifying popular products or detecting slow-moving items.''',
                   style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(
-                height: 10,
+                height: 15,
+               
               ),
-              Text(
-                ' App Updates and Modifications',
-                style: GoogleFonts.acme(),
-              )
+                Text("*********************************"),
             ],
           ),
         ),
