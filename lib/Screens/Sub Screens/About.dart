@@ -24,21 +24,26 @@ class about extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
+                CircleAvatar(
+                  child:
+                      Image(image: AssetImage('asset/inventoware-logo1.png')),
+                  radius: 75,
+                ),
                 Text(
-                  '''         Welcome to InventoWare, a powerful and comprehensive inventory stock management application developed by Munawar.With a mission to simplify inventory control for businesses of all sizes, InventoWare offers an array of advanced features to streamline your inventory processes, optimize stock levels, and enhance overall efficiency.''',
+                  '''Welcome to InventoWare, a powerful and comprehensive inventory stock management application developed by Munawar.With a mission to simplify inventory control for businesses of all sizes, InventoWare offers an array of advanced features to streamline your inventory processes, optimize stock levels, and enhance overall efficiency.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 0, 0, 255)),
                 ),
                 Text(
-                  ''' \n\nInternship Experience at Bridgeon Solution Kakkanchery,Malappuram:
+                  ''' \nInternship Experience at Bridgeon Solution Kakkanchery,Malappuram:
 During my internship at Bridgeon Solution Kakkanchery, I had the privilege of honing my skills in inventory stock management and gaining hands-on experience in implementing cutting-edge solutions. Working alongside talented mentors and peers, I was exposed to the latest industry practices, which have greatly influenced the development of InventoWare. It was an enriching experience that helped me refine my expertise and passion for revolutionizing inventory management.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 8, 33, 255)),
                 ),
                 Text(
-                  '''\n\nStay Connected with Munawar:
+                  '''\nStay Connected with Munawar:
       
 LinkedIn: 
 Instagram: 
