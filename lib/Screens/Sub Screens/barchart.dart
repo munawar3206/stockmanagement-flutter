@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class barchart extends StatefulWidget {
-  barchart({super.key});
+class Barchart extends StatefulWidget {
+  Barchart({super.key});
   final Color leftBarColor = Colors.white;
   final Color rightBarColor = Colors.red;
   final Color avgColor = Colors.orange;
@@ -10,7 +10,7 @@ class barchart extends StatefulWidget {
   State<StatefulWidget> createState() => accountState();
 }
 
-class accountState extends State<barchart> {
+class accountState extends State<Barchart> {
   final double width = 7;
 
   late List<BarChartGroupData> rawBarGroups;

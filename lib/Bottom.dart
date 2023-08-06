@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:stock/Screens/Add.dart';
-import 'package:stock/Screens/History.dart';
+import 'package:stock/Screens/add.dart';
+
 import 'package:stock/Screens/Home.dart';
 import 'package:stock/Screens/Item.dart';
 import 'package:stock/Screens/setting.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 
-class bottom extends StatefulWidget {
+import 'Screens/History.dart';
+
+class Bottom extends StatefulWidget {
   @override
-  _bottomState createState() => _bottomState();
+  _BottomState createState() => _BottomState();
 }
 
-class _bottomState extends State<bottom> {
+class _BottomState extends State<Bottom> {
   int _currentIndex = 0;
 
   final List<Widget> bottomBarPages = [
-    const  home(),
-    const item(),
-    const add(),
-    const history(),
-    const setting(),
+    const  Home(),
+    const Item(),
+         Add(),
+    const History(),
+    const Setting(),
   ];
 
   @override

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class term extends StatelessWidget {
-  const term({super.key});
+class Term extends StatelessWidget {
+  const Term({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +43,12 @@ class term extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  '''1. By using the App, you agree to be bound by these Terms and Conditions, and any other policies and guidelines posted on the App.If you do not agree with any part of these terms, please refrain from using the App.\n
+                  '''1. By using the App, you agree to be bound by these Terms and Conditions, and any other policies and guidelines posted on the App.If you do not agree with any part of these Terms, please refrain from using the App.\n
 2. App Purpose: The App is designed to assist users in managing their inventory stock efficiently. The App provides functionalities to track, organize, and analyze inventory items, manage stock levels, set notifications for low stock,and generate reports, among other features.\n
 3. Data Privacy: We are committed to protecting your data privacy. Please refer to our Privacy Policy for details on how we collect, use, and protect your personal information.\n
 4. User Responsibilities: You agree to use the App solely for lawful purposes and in accordance with these Terms and Conditions. You are responsible for all activities conducted through your account and must not engage in any actions that may harm the App, its users, or its functionality.\n
-5. Third-Party Services: The App may integrate with third-party services or link to external websites. We are not responsible for the content, privacy practices, or actions of any third-party services. Your use of such services is at your own risk, and you should review the respective terms and policies of those services.\n
-6. Termination: We reserve the right to terminate or suspend your access to the App at any time and for any reason without prior notice.\n
+5. Third-Party Services: The App may integrate with third-party services or link to external websites. We are not responsible for the content, privacy practices, or actions of any third-party services. Your use of such services is at your own risk, and you should review the respective Terms and policies of those services.\n
+6. Termination: We reserve the right to Terminate or suspend your access to the App at any time and for any reason without prior notice.\n
 7. Contact: If you have any questions, concerns, or feedback regarding the App or these Terms and Conditions, please contact us.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,

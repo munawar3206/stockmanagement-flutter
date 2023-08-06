@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class update extends StatelessWidget {
-  const update({super.key});
+class Update extends StatelessWidget {
+  const Update({super.key});
 
   @override
   Widget build(BuildContext context) {

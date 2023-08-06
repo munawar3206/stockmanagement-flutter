@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class history extends StatefulWidget {
-  const history({Key? key}) : super(key: key);
+class History extends StatefulWidget {
+  const History({Key? key}) : super(key: key);
 
   @override
-  State<history> createState() => _historyState();
+  State<History> createState() => _HistoryState();
 }
 
-class _historyState extends State<history> {
+class _HistoryState extends State<History> {
   final List<String> historysList = [
     'Product Name1',
   ];

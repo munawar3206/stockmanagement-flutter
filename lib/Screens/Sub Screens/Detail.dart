@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/Screens/Item.dart';
 import 'package:stock/Screens/Sub%20Screens/update.dart';
 
-class detail extends StatefulWidget {
-  const detail({super.key});
+class Detail extends StatefulWidget {
+  const Detail({super.key});
 
   @override
-  State<detail> createState() => _detailState();
+  State<Detail> createState() => _detailState();
 }
 
-class _detailState extends State<detail> {
+class _detailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class _detailState extends State<detail> {
               IconButton(onPressed: () {
                 Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => update()),
+                              MaterialPageRoute(builder: (context) => Update()),
                             );
               }, icon: Icon(Icons.edit)),
               SizedBox(height: 10),
@@ -53,6 +53,9 @@ class _detailState extends State<detail> {
                 height: 50,
                 width: 50,
                 color: Color.fromARGB(255, 147, 91, 244),
+                child: Image(
+                                image:
+                                    AssetImage('asset/stationary.jpg')),
               ),
               title: Row(
                 children: [
@@ -105,6 +108,9 @@ class _detailState extends State<detail> {
               height: 50,
               width: 50,
               color: Color.fromARGB(255, 155, 49, 221),
+              child: Image(
+                                image:
+                                    AssetImage('asset/stationary.jpg')),
             ),
             SizedBox(width: 10),
             Text("Pen"),

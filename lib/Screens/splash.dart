@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stock/Bottom.dart';
+import 'package:stock/bottom.dart';
 
 class ScreenSplash extends StatefulWidget {
   const ScreenSplash({super.key});
@@ -19,7 +19,11 @@ class _ScreenSplashState extends State<ScreenSplash> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Center(
-          child: Image.asset("asset/inventoware-logo.png", height: double.infinity,width: double.infinity,),
+          child: Image.asset(
+            "asset/inventoware-logo1.png",
+            height: double.infinity,
+            width: double.infinity,
+          ),
         ),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
       );
@@ -28,7 +32,7 @@ class _ScreenSplashState extends State<ScreenSplash> {
     await Future.delayed(Duration(seconds: 3));
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => bottom(),
+        builder: (context) => Bottom(),
       ),
     );
   }

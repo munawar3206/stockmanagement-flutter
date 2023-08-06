@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:stock/Bottom.dart';
+import 'package:hive_flutter/adapters.dart';
+
 
 import 'package:stock/Screens/splash.dart';
 
-void main() {
-  runApp(const MyApp());
+
+import 'model/stock.dart';
+
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(StockAdapter());
+  await Hive.openBox<Stock>('stockbox');
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

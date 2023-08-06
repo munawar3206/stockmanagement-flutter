@@ -1,17 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:stock/Screens/Sub%20Screens/barchart.dart';
 
-class home extends StatefulWidget {
-  const home({Key? key});
+class Home extends StatefulWidget {
+  const Home({Key? key});
 
   @override
-  State<home> createState() => _homeState();
+  State<Home> createState() => _HomeState();
 }
 
-class _homeState extends State<home> {
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +25,8 @@ class _homeState extends State<home> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          
           children: [
-            
             Container(
-              
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Card(
@@ -192,16 +188,13 @@ class _homeState extends State<home> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-              
                 children: [
                   SingleChildScrollView(),
                   Container(
                     color: Color.fromARGB(255, 200, 209, 253),
                     width: MediaQuery.of(context).size.width * 1.0,
                     height: MediaQuery.of(context).size.height * 0.425,
-                     
-                      child: barchart(),
-                    
+                    child: Barchart(),
                   ),
                 ],
               ),

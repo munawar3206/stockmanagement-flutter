@@ -3,17 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stock/Screens/Sub%20Screens/About.dart';
+import 'package:stock/Screens/Sub%20Screens/about.dart';
 import 'package:stock/Screens/Sub%20Screens/term.dart';
 
-class setting extends StatefulWidget {
-  const setting({Key? key}) : super(key: key);
+class Setting extends StatefulWidget {
+  const Setting({Key? key}) : super(key: key);
 
   @override
-  State<setting> createState() => _settingState();
+  State<Setting> createState() => _SettingState();
 }
 
-class _settingState extends State<setting> {
+class _SettingState extends State<Setting> {
   final List<ItemData> itemsList = [
  
     ItemData(Icons.notes, 'Terms and Conditions'),
@@ -85,7 +85,7 @@ class _settingState extends State<setting> {
       case 'Terms and Conditions':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => term()),
+          MaterialPageRoute(builder: (context) => Term()),
         );
         case 'About':
         Navigator.push(

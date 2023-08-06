@@ -1,9 +1,66 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:stock/Screens/Item.dart';
+import 'package:stock/functions/function.dart';
+import 'package:stock/model/stock.dart';
+import '../functions/image.dart';
 
-class add extends StatelessWidget {
-  const add({Key? key});
+class Add extends StatefulWidget {
+  const Add({Key? key});
+
+  @override
+  State<Add> createState() => _AddState();
+}
+
+class _AddState extends State<Add> {
+  final _itemNameController = TextEditingController();
+  final _openingStockController = TextEditingController();
+  final _reorderStockController = TextEditingController();
+  final _stallNumberController = TextEditingController();
+  final _sellingPriceController = TextEditingController();
+  final _costPriceController = TextEditingController();
+  final StockRepository stockRepository = StockRepository();
+  XFile? pickedImage;
+
+  Future<void> _pickImage() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Choose From...'),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  Navigator.pop(context);
+                  XFile? picked =
+                      await ImageUtils.pickImage(ImageSource.camera);
+                  setState(() {
+                    pickedImage = picked;
+                  });
+                },
+                child: Text('Camera'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  Navigator.pop(context);
+                  XFile? picked =
+                      await ImageUtils.pickImage(ImageSource.gallery);
+                  setState(() {
+                    pickedImage = picked;
+                  });
+                },
+                child: Text('Gallery'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +71,7 @@ class add extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => item()),
+              MaterialPageRoute(builder: (context) => Item()),
             );
           },
           icon: Icon(Icons.arrow_back),
@@ -29,7 +86,23 @@ class add extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              final Stock newStock = Stock(
+                imagePath: pickedImage?.path ?? '',
+                itemname: _itemNameController.text,
+                openingStock: int.parse(_openingStockController.text),
+                reorderStock: int.parse(_reorderStockController.text),
+                stallNo: _stallNumberController.text,
+                sellingPrice: int.parse(_sellingPriceController.text),
+                costPrice: int.parse(_costPriceController.text),
+              );
+              stockRepository.addStock(newStock);
+
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Item()),
+              );
+            },
             child: Text(
               'SAVE',
               style: TextStyle(color: Color.fromARGB(255, 0, 13, 255)),
@@ -51,25 +124,38 @@ class add extends StatelessWidget {
                     color: Color.fromARGB(255, 207, 216, 255),
                     border: Border.all(width: 8, color: Colors.white),
                   ),
-                  child: Column(
+                  child: Stack(
                     children: [
-                      Icon(
-                        Icons.camera_enhance,
-                        size: 50,
-                        color: const Color.fromARGB(255, 30, 110, 176),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        'Add Image',
-                        style: TextStyle(
-                            color: const Color.fromARGB(255, 30, 110, 176)),
-                      )
+                      pickedImage != null
+                          ? Image.file(
+                              File(pickedImage!.path),
+                              width: 100,
+                              height: 100,
+                            )
+                          : Container(),
+                      pickedImage == null
+                          ? IconButton(
+                              onPressed: () {
+                                _pickImage();
+                              },
+                              icon: Icon(Icons.camera_enhance_sharp),
+                              iconSize: 68,
+                              color: Color.fromARGB(255, 30, 110, 176),
+                            )
+                          : SizedBox(),
                     ],
                   ),
                 ),
               ),
+              SizedBox(height: 10),
+              pickedImage == null
+                  ? Text(
+                      'Add Image',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 0, 140, 255),
+                      ),
+                    )
+                  : SizedBox(),
               SizedBox(height: 20),
               Card(
                 child: Padding(
@@ -77,95 +163,23 @@ class add extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Item Name',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          hintText: 'Enter Item Name',
-                        ),
-                      ),
+                      buildTextFormField('Item Name', _itemNameController,
+                          TextInputType.text, 'Enter Item Name'),
                       SizedBox(height: 16),
-                      Text(
-                        'Opening Stock',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          hintText: '0.0',
-                        ),
-                      ),
+                      buildTextFormField('Opening Stock',
+                          _openingStockController, TextInputType.number, '0.0'),
                       SizedBox(height: 16),
-                      Text(
-                        'Reorder Stock',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          hintText: '0.0',
-                        ),
-                      ),
+                      buildTextFormField('Reorder Stock',
+                          _reorderStockController, TextInputType.number, '0.0'),
                       SizedBox(height: 16),
-                      Text(
-                        'Stall No:',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          hintText: 'A2...',
-                        ),
-                      ),
+                      buildTextFormField('Stall No:', _stallNumberController,
+                          TextInputType.text, 'A2...'),
                       SizedBox(height: 16),
-                      Text(
-                        'Selling Price',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          hintText: '₹',
-                        ),
-                      ),
+                      buildTextFormField('Selling Price',
+                          _sellingPriceController, TextInputType.number, '₹'),
                       SizedBox(height: 16),
-                      Text(
-                        'Cost Price',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          hintText: '₹',
-                        ),
-                      ),
+                      buildTextFormField('Cost Price', _costPriceController,
+                          TextInputType.number, '₹'),
                     ],
                   ),
                 ),
@@ -175,6 +189,22 @@ class add extends StatelessWidget {
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
+    );
+  }
+
+  TextFormField buildTextFormField(
+      String label,
+      TextEditingController controller,
+      TextInputType keyboardType,
+      String hintText) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: hintText,
+        border: UnderlineInputBorder(),
+      ),
     );
   }
 }
