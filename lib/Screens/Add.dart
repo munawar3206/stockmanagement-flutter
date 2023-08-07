@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:stock/Screens/Item.dart';
+import 'package:stock/screens/Item.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 import '../functions/image.dart';
@@ -62,6 +62,23 @@ class _AddState extends State<Add> {
     );
   }
 
+  String? _itemNameValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return '';
+    }
+    return null;
+  }
+
+  String? _numericValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return '';
+    }
+    if (int.tryParse(value) == null) {
+      return 'Please enter a valid number.';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,10 +115,11 @@ class _AddState extends State<Add> {
               );
               stockRepository.addStock(newStock);
 
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Item()),
-              );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Item(),
+                  ));
             },
             child: Text(
               'SAVE',
@@ -163,23 +181,53 @@ class _AddState extends State<Add> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      buildTextFormField('Item Name', _itemNameController,
-                          TextInputType.text, 'Enter Item Name'),
+                      buildTextFormField(
+                        'Item Name',
+                        _itemNameController,
+                        TextInputType.text,
+                        'Enter Item Name',
+                        _itemNameValidator,
+                      ),
                       SizedBox(height: 16),
-                      buildTextFormField('Opening Stock',
-                          _openingStockController, TextInputType.number, '0.0'),
+                      buildTextFormField(
+                        'Opening Stock',
+                        _openingStockController,
+                        TextInputType.number,
+                        '0.0',
+                        _numericValidator,
+                      ),
                       SizedBox(height: 16),
-                      buildTextFormField('Reorder Stock',
-                          _reorderStockController, TextInputType.number, '0.0'),
+                      buildTextFormField(
+                        'Reorder Stock',
+                        _reorderStockController,
+                        TextInputType.number,
+                        '0.0',
+                        _numericValidator,
+                      ),
                       SizedBox(height: 16),
-                      buildTextFormField('Stall No:', _stallNumberController,
-                          TextInputType.text, 'A2...'),
+                      buildTextFormField(
+                        'Stall No:',
+                        _stallNumberController,
+                        TextInputType.text,
+                        'A2...',
+                        _itemNameValidator,
+                      ),
                       SizedBox(height: 16),
-                      buildTextFormField('Selling Price',
-                          _sellingPriceController, TextInputType.number, '₹'),
+                      buildTextFormField(
+                        'Selling Price',
+                        _sellingPriceController,
+                        TextInputType.number,
+                        '₹',
+                        _numericValidator,
+                      ),
                       SizedBox(height: 16),
-                      buildTextFormField('Cost Price', _costPriceController,
-                          TextInputType.number, '₹'),
+                      buildTextFormField(
+                        'Cost Price',
+                        _costPriceController,
+                        TextInputType.number,
+                        '₹',
+                        _numericValidator,
+                      ),
                     ],
                   ),
                 ),
@@ -193,10 +241,12 @@ class _AddState extends State<Add> {
   }
 
   TextFormField buildTextFormField(
-      String label,
-      TextEditingController controller,
-      TextInputType keyboardType,
-      String hintText) {
+    String label,
+    TextEditingController controller,
+    TextInputType keyboardType,
+    String hintText,
+    String? Function(String?)? validator,
+  ) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
@@ -204,6 +254,7 @@ class _AddState extends State<Add> {
         labelText: label,
         hintText: hintText,
         border: UnderlineInputBorder(),
+        errorText: validator != null ? validator(controller.text) : null,
       ),
     );
   }

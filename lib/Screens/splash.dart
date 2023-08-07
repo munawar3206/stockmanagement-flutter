@@ -21,8 +21,8 @@ class _ScreenSplashState extends State<ScreenSplash> {
         body: Center(
           child: Image.asset(
             "asset/inventoware-logo1.png",
-            height: double.infinity,
-            width: double.infinity,
+            height: 300,
+            width: 300,
           ),
         ),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),

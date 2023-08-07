@@ -3,17 +3,20 @@ import 'package:stock/model/stock.dart';
 
 class StockRepository {
   final Box<Stock> _stockBox = Hive.box<Stock>('stockbox');
-  
+
   List<Stock> getAllStock() {
     return _stockBox.values.toList();
   }
 
-  void addStock(Stock stock) { // Add the addStock method
+  void addStock(Stock stock) {
+    // Add the addStock method
     _stockBox.add(stock);
   }
 
   void updateStock(Stock updatedStock) {
-    final int index = _stockBox.values.toList().indexWhere((stock) => stock.id == updatedStock.id);
+    final int index = _stockBox.values
+        .toList()
+        .indexWhere((stock) => stock.id == updatedStock.id);
     if (index != -1) {
       _stockBox.putAt(index, updatedStock);
     }
@@ -21,7 +24,6 @@ class StockRepository {
 
   void deleteStock(int index) {
     _stockBox.deleteAt(index);
+    getAllStock();
   }
 }
-
-

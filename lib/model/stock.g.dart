@@ -46,8 +46,8 @@ class StockAdapter extends TypeAdapter<Stock> {
       ..write(obj.sellingPrice)
       ..writeByte(6)
       ..write(obj.costPrice)
-    ..writeByte(7)
-    ..write(obj.imagePath);
+      ..writeByte(7)
+      ..write(obj.imagePath);
   }
 
   @override

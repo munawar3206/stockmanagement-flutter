@@ -17,6 +17,7 @@ class _HistoryState extends State<History> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
         title: Text(

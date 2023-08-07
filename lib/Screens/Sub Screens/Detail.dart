@@ -1,16 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stock/Screens/Item.dart';
-import 'package:stock/Screens/Sub%20Screens/update.dart';
+import 'package:stock/functions/function.dart';
+import 'package:stock/model/stock.dart';
+import 'package:stock/screens/Sub%20Screens/update.dart';
+import '../../functions/alertbox.dart';
 
-class Detail extends StatefulWidget {
-  const Detail({super.key});
+class Detail extends StatelessWidget {
+  final Stock stock;
 
-  @override
-  State<Detail> createState() => _detailState();
-}
+  Detail({required this.stock});
 
-class _detailState extends State<Detail> {
+  final StockRepository stockRepository = StockRepository();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,163 +23,100 @@ class _detailState extends State<Detail> {
         title: Text(
           "Item Details",
           style: GoogleFonts.acme(
-              color: Colors.black, fontWeight: FontWeight.bold),
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         iconTheme: IconThemeData(
           color: Colors.black,
         ),
         actions: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.delete),
-              ),
-              IconButton(onPressed: () {
-                Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Update()),
-                            );
-              }, icon: Icon(Icons.edit)),
-              SizedBox(height: 10),
-            ],
-          )
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Update(),
+                  ));
+            },
+            icon: Icon(Icons.edit),
+          ),
+          SizedBox(height: 10),
         ],
       ),
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
-      body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Card(
-            child: ListTile(
-              leading: Container(
-                height: 50,
-                width: 50,
-                color: Color.fromARGB(255, 147, 91, 244),
-                child: Image(
-                                image:
-                                    AssetImage('asset/stationary.jpg')),
-              ),
-              title: Row(
-                children: [
-                  Text('Pen'),
-                ],
-              ),
-              subtitle: Text('Price: '),
-              trailing: Text(
-                '5',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Card(
+              child: ListTile(
+                leading: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    image: stock.imagePath != null
+                        ? DecorationImage(
+                            image: FileImage(File(stock.imagePath!)),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
+                  ),
+                ),
+                title: Row(
+                  children: [
+                    Text(stock.itemname ?? 'Unknown Item'),
+                  ],
+                ),
+                subtitle: Text('Price: ${stock.sellingPrice}'),
+                trailing: Text(
+                  'Stall Number: ${stock.stallNo}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        MaterialButton(
-  color: const Color.fromARGB(255, 0, 0, 255),
-  onPressed: () {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Row(
-          children: [
-            const Text("Select Quantity"),
-            SizedBox(
-              width: 50,
-            ),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  icon: Icon(Icons.close),
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-              ],
-            )
-          ],
-        ),
-        content: Row(
-          children: [
-            Container(
-              height: 50,
-              width: 50,
-              color: Color.fromARGB(255, 155, 49, 221),
-              child: Image(
-                                image:
-                                    AssetImage('asset/stationary.jpg')),
-            ),
-            SizedBox(width: 10),
-            Text("Pen"),
-            Spacer(),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                  
-                  },
-                  icon: Icon(Icons.remove),
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  "1", 
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 10),
-                IconButton(
-                  onPressed: () {
-                 
-                  },
-                  icon: Icon(Icons.add),
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-              ],
-            )
-          ],
-        ),
-        actions: <Widget>[
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 0, 0, 255),
+          SizedBox(
+            height: 50,
+          ),
+          GestureDetector(
+            onTap: () {
+              CustomAlertDialog.showAlertDialog(context, stock);
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 38, 0, 255),
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text(
-                "OK",
-                style: TextStyle(color: Colors.white),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.system_update_alt_outlined,
+                    color: Colors.white,
+                  ),
+                  SizedBox(width: 18),
+                  Text(
+                    "UPDATED STOCK",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
         ],
       ),
-    );
-  },
-  child: Column(
-    children: [
-      Icon(
-        Icons.system_update_alt_outlined,
-        color: Colors.white,
-      ),
-      const SizedBox(width: 18),
-      Text(
-        "UPDATED STOCK",
-        style: TextStyle(
-          color: Colors.white,
-        ),
-      ),
-    ],
-  ),
-)
-      ]),
     );
   }
 }
