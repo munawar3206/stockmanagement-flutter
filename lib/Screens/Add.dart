@@ -6,14 +6,11 @@ import 'package:stock/screens/Item.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 import '../functions/image.dart';
-
 class Add extends StatefulWidget {
   const Add({Key? key});
-
   @override
   State<Add> createState() => _AddState();
 }
-
 class _AddState extends State<Add> {
   final _itemNameController = TextEditingController();
   final _openingStockController = TextEditingController();
@@ -23,8 +20,7 @@ class _AddState extends State<Add> {
   final _costPriceController = TextEditingController();
   final StockRepository stockRepository = StockRepository();
   XFile? pickedImage;
-
-  Future<void> _pickImage() async {
+Future<void> _pickImage() async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -61,15 +57,13 @@ class _AddState extends State<Add> {
       },
     );
   }
-
-  String? _itemNameValidator(String? value) {
+ String? _itemNameValidator(String? value) {
     if (value == null || value.isEmpty) {
       return '';
     }
     return null;
   }
-
-  String? _numericValidator(String? value) {
+String? _numericValidator(String? value) {
     if (value == null || value.isEmpty) {
       return '';
     }
@@ -78,7 +72,6 @@ class _AddState extends State<Add> {
     }
     return null;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +107,6 @@ class _AddState extends State<Add> {
                 costPrice: int.parse(_costPriceController.text),
               );
               stockRepository.addStock(newStock);
-
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -234,7 +226,6 @@ class _AddState extends State<Add> {
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
     );
   }
-
   TextFormField buildTextFormField(
     String label,
     TextEditingController controller,

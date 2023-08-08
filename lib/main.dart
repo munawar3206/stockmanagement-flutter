@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
-
 import 'package:stock/bottom.dart';
 
 import 'model/stock.dart';
@@ -11,7 +10,6 @@ void main() async {
 
   if (!Hive.isAdapterRegistered(StockAdapter().typeId)) {
     Hive.registerAdapter(StockAdapter());
-  
   }
 
   await Hive.openBox<Stock>('stockbox');

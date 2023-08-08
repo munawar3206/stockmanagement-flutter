@@ -56,10 +56,9 @@ class _UpdateState extends State<Update> {
                      
                       );
 
-              // You can now use this updatedStock object to save the data or perform other actions.
-              // For example, you can pass it back to the previous screen using Navigator.pop.
+        
 
-              Navigator.pop(context, updatedStock); // Pass the updated stock back
+              Navigator.pop(context, updatedStock); 
             },
             child: Text(
               "SAVE",
