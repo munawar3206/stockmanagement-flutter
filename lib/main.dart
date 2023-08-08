@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
-import 'package:stock/Screens/splash.dart';
+
 import 'package:stock/bottom.dart';
 
 import 'model/stock.dart';

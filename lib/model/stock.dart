@@ -26,7 +26,9 @@ class Stock {
   int? costPrice;
 
    @HiveField(7)
-  String? imagePath; 
+  String? imagePath;
+
+  var costprice; 
 
   Stock({
     this.id,

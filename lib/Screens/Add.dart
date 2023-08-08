@@ -205,13 +205,8 @@ class _AddState extends State<Add> {
                         _numericValidator,
                       ),
                       SizedBox(height: 16),
-                      buildTextFormField(
-                        'Stall No:',
-                        _stallNumberController,
-                        TextInputType.text,
-                        'A2...',
-                        _itemNameValidator,
-                      ),
+                      buildTextFormField('Stall No:', _stallNumberController,
+                          TextInputType.text, 'A2...', _itemNameValidator),
                       SizedBox(height: 16),
                       buildTextFormField(
                         'Selling Price',

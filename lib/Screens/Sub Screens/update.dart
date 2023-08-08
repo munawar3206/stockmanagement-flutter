@@ -1,8 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stock/model/stock.dart';
 
-class Update extends StatelessWidget {
-  const Update({super.key});
+class Update extends StatefulWidget {
+  final Stock stock;
+
+  Update({required this.stock});
+
+  @override
+  _UpdateState createState() => _UpdateState();
+}
+
+class _UpdateState extends State<Update> {
+  TextEditingController _itemNameController = TextEditingController();
+  TextEditingController _stallNumberController = TextEditingController();
+  TextEditingController _sellingPriceController = TextEditingController();
+  TextEditingController _costPriceController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _itemNameController.text = widget.stock.itemname ?? '';
+    _stallNumberController.text = widget.stock.stallNo ?? '';
+    _sellingPriceController.text = widget.stock.sellingPrice.toString();
+    _costPriceController.text = widget.stock.costPrice.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +35,37 @@ class Update extends StatelessWidget {
         title: Text(
           'Edit Items',
           style: GoogleFonts.acme(
-              fontWeight: FontWeight.bold, color: Colors.black),
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
         actions: [
           TextButton(
-              onPressed: () {},
-              child: Text(
-                "SAVE",
-                style: TextStyle(color: Color.fromARGB(255, 0, 42, 255)),
-              ))
+            onPressed: () {
+   
+             Stock updatedStock = Stock(
+                        id: widget.stock.id,
+                        imagePath: widget.stock.imagePath,
+                        itemname: _itemNameController.text,
+                        stallNo: _stallNumberController.text,
+                        sellingPrice:
+                             int.tryParse(_sellingPriceController.text) ?? 0,
+                        costPrice: int.tryParse(_costPriceController.text) ?? 0,
+                        openingStock: widget.stock.openingStock, 
+                        reorderStock: widget.stock.reorderStock,
+                     
+                      );
+
+              // You can now use this updatedStock object to save the data or perform other actions.
+              // For example, you can pass it back to the previous screen using Navigator.pop.
+
+              Navigator.pop(context, updatedStock); // Pass the updated stock back
+            },
+            child: Text(
+              "SAVE",
+              style: TextStyle(color: Color.fromARGB(255, 0, 42, 255)),
+            ),
+          )
         ],
         elevation: 0,
       ),
@@ -44,13 +88,13 @@ class Update extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
+                    controller: _itemNameController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),
                       hintText: 'Enter Item Name',
                     ),
                   ),
-                  SizedBox(height: 16),
                   SizedBox(height: 16),
                   Text(
                     'Stall No:',
@@ -60,6 +104,7 @@ class Update extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
+                    controller: _stallNumberController,
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),
                       hintText: 'A2...',
@@ -74,6 +119,7 @@ class Update extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
+                    controller: _sellingPriceController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),
@@ -89,6 +135,7 @@ class Update extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
+                    controller: _costPriceController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),

@@ -26,6 +26,10 @@ class Item extends StatelessWidget {
     loadStocks();
     
   }
+  Future<void> _updateStock(int index, Stock updatedStock) async {
+  stockRepository.updateStock(updatedStock);
+  loadStocks();
+}
 
   @override
   Widget build(BuildContext context) {
