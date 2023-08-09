@@ -17,11 +17,11 @@ class _BottomState extends State<Bottom> {
   int _currentIndex = 0;
 
   final List<Widget> bottomBarPages = [
-      Home(),
-     Item(),
-         Add(),
-     History(),
-     Setting(),
+    Home(),
+    Item(),
+    Add(),
+    History(),
+    Setting(),
   ];
 
   @override
