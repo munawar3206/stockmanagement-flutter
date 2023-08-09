@@ -25,13 +25,14 @@ class StockAdapter extends TypeAdapter<Stock> {
       sellingPrice: fields[5] as int?,
       costPrice: fields[6] as int?,
       imagePath: fields[7] as String?,
+      quantity: fields[8] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Stock obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class StockAdapter extends TypeAdapter<Stock> {
       ..writeByte(6)
       ..write(obj.costPrice)
       ..writeByte(7)
-      ..write(obj.imagePath);
+      ..write(obj.imagePath)
+      ..writeByte(8)
+      ..write(obj.quantity);
   }
 
   @override

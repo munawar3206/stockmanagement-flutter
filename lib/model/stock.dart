@@ -28,6 +28,9 @@ class Stock {
    @HiveField(7)
   String? imagePath;
 
+   @HiveField(8) 
+  int? quantity;
+
   var costprice; 
 
   Stock({
@@ -39,5 +42,7 @@ class Stock {
     required this.sellingPrice,
     required this.costPrice,
     this.imagePath,
+    this.quantity,
   });
+
 }
