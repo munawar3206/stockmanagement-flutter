@@ -53,21 +53,21 @@ class Item extends StatelessWidget {
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(45),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.black,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(45),
-                  borderSide: BorderSide(
-                    color: const Color.fromARGB(255, 0, 0, 0),
+                  borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
                 filled: true,
-                fillColor: Color.fromARGB(255, 255, 255, 255),
+                fillColor: const Color.fromARGB(255, 255, 255, 255),
                 hintText: 'Search Item Name...',
-                prefixIcon: Icon(Icons.search),
-                prefixIconColor: Color.fromARGB(255, 0, 0, 0),
+                prefixIcon: const Icon(Icons.search),
+                prefixIconColor: const Color.fromARGB(255, 0, 0, 0),
               ),
             ),
           ),
@@ -102,7 +102,7 @@ class Item extends StatelessWidget {
                                 child: (stock.imagePath == null)
                                     ? IconButton(
                                         onPressed: _pickImage,
-                                        icon: Icon(Icons.camera_enhance,
+                                        icon: const Icon(Icons.camera_enhance,
                                             size: 30),
                                       )
                                     : null,
@@ -110,7 +110,7 @@ class Item extends StatelessWidget {
                               title: Text(stock.itemname!),
                               subtitle: Text(
                                 stock.stallNo!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color.fromARGB(255, 0, 255, 4),
                                 ),
                               ),
@@ -129,30 +129,29 @@ class Item extends StatelessWidget {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text('Confirm Deletion'),
-                                        content: Text(
+                                        title: const Text('Confirm Deletion'),
+                                        content: const Text(
                                             'Are you sure you want to delete this Stock?'),
                                         actions: [
                                           TextButton(
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },
-                                            child: Text('Cancel'),
+                                            child: const Text('Cancel'),
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              _deleteStock(
-                                                  index); // Call the deleteStock method
+                                              _deleteStock(index);
                                               Navigator.pop(context);
                                             },
-                                            child: Text('Delete'),
+                                            child: const Text('Delete'),
                                           ),
                                         ],
                                       );
                                     },
                                   );
                                 },
-                                icon: Icon(Icons.delete),
+                                icon: const Icon(Icons.delete),
                               ),
                             ),
                           ),

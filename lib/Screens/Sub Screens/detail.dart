@@ -1,11 +1,12 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
-import 'package:stock/screens/Sub%20Screens/alertbox.dart';
 import 'package:stock/screens/Sub%20Screens/update.dart';
+
+import 'alertbox.dart';
 
 
 class Detail extends StatefulWidget {
@@ -19,6 +20,7 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   final StockRepository stockRepository = StockRepository();
+  final TextEditingController quantityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -112,10 +114,10 @@ class _DetailState extends State<Detail> {
           const SizedBox(
             height: 50,
           ),
-          GestureDetector(
+         GestureDetector(
             onTap: () async {
               Stock? updatedStock = await CustomAlertDialog.showAlertDialog(
-                  context, widget.stock);
+                  context, widget.stock, quantityController);
 
               if (updatedStock != null) {
                 setState(() {

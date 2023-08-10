@@ -2,11 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stock/model/stock.dart';
+import '../../utility/utilities.dart';
 
 class CustomAlertDialog {
   static Future<Stock?> showAlertDialog(
-      BuildContext context, Stock stock) async {
-    TextEditingController quantityController = TextEditingController();
+      BuildContext context, Stock stock, TextEditingController quantityController) async {
+    final stockUtils = StockUtils([quantityController]);
 
     return showDialog<Stock>(
       context: context,
@@ -42,20 +43,15 @@ class CustomAlertDialog {
               SizedBox(height: 10),
               Text(stock.itemname ?? 'Unknown Item'),
               SizedBox(height: 10),
-              // -------------------------------- update quantity controller ----------------------------------
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    onPressed: () {
-                      int quantity = int.tryParse(quantityController.text) ?? 0;
-                      quantity--;
-                      quantityController.text = quantity.toString();
-                    },
+                    onPressed: () =>
+                        stockUtils.decreaseStockQuantities(),
                     icon: Icon(Icons.remove),
                     color: Color.fromARGB(255, 0, 0, 0),
                   ),
-
                   SizedBox(width: 10),
                   Expanded(
                     child: TextField(
@@ -65,20 +61,16 @@ class CustomAlertDialog {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       textAlign: TextAlign.center,
-                      decoration:const InputDecoration(
+                      decoration:const  InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "0",
                       ),
                     ),
                   ),
-                                                                                       
                   SizedBox(width: 10),
                   IconButton(
-                    onPressed: () {
-                      int quantity = int.tryParse(quantityController.text) ?? 0;
-                      quantity++;
-                      quantityController.text = quantity.toString();
-                    },
+                    onPressed: () =>
+                        stockUtils.increaseStockQuantities(),
                     icon:const Icon(Icons.add),
                     color: Color.fromARGB(255, 0, 0, 0),
                   ),
@@ -87,17 +79,18 @@ class CustomAlertDialog {
             ],
           ),
           actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                int quantity = int.tryParse(quantityController.text) ?? 0;
+   ElevatedButton(
+  onPressed: () {
+    int quantity = stockUtils.getTotalQuantity();
 
-                stock.quantity = quantity;
+    stock.quantity = quantity;
 
-                Navigator.of(ctx).pop(stock);
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 0, 0, 255),
-              ),
+    Navigator.of(ctx).pop(stock);
+  },
+  style: ElevatedButton.styleFrom(
+    primary: Color.fromARGB(255, 0, 0, 255),
+  ),
+             
               child: const Text(
                 "OK",
                 style: TextStyle(color: Colors.white),
