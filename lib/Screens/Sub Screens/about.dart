@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class about extends StatelessWidget {
-  const about({super.key});
+class About extends StatelessWidget {
+  About({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class about extends StatelessWidget {
         elevation: 0,
       ),
       backgroundColor: Color.fromARGB(255, 222, 228, 255),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -29,8 +29,11 @@ class about extends StatelessWidget {
                       Image(image: AssetImage('asset/inventoware-logo1.png')),
                   radius: 75,
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
-                  '''Welcome to InventoWare, a powerful and comprehensive inventory stock management application developed by Munawar.With a mission to simplify inventory control for businesses of all sizes, InventoWare offers an array of advanced features to streamline your inventory processes, optimize stock levels, and enhance overall efficiency.''',
+                  '''               Welcome to InventoWare, a powerful and comprehensive inventory stock management application developed by Munawar.With a mission to simplify inventory control for businesses of all sizes, InventoWare offers an array of advanced features to streamline your inventory processes, optimize stock levels, and enhance overall efficiency.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 0, 0, 255)),
@@ -40,7 +43,7 @@ class about extends StatelessWidget {
 During my internship at Bridgeon Solution Kakkanchery, I had the privilege of honing my skills in inventory stock management and gaining hands-on experience in implementing cutting-edge solutions. Working alongside talented mentors and peers, I was exposed to the latest industry practices, which have greatly influenced the development of InventoWare. It was an enriching experience that helped me refine my expertise and passion for revolutionizing inventory management.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 8, 33, 255)),
+                      color: Color.fromARGB(255, 0, 0, 255)),
                 ),
                 Text(
                   '''\nStay Connected with Munawar:

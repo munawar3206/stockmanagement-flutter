@@ -17,19 +17,17 @@ class Item extends StatelessWidget {
     stocksNotifier.value = stockRepository.getAllStock();
   }
 
-  Future<void> _pickImage() async {
-   
-  }
+  Future<void> _pickImage() async {}
 
   Future<void> _deleteStock(int index) async {
     stockRepository.deleteStock(index);
     loadStocks();
-    
   }
+
   Future<void> _updateStock(int index, Stock updatedStock) async {
-  stockRepository.updateStock(updatedStock);
-  loadStocks();
-}
+    stockRepository.updateStock(updatedStock);
+    loadStocks();
+  }
 
   @override
   Widget build(BuildContext context) {

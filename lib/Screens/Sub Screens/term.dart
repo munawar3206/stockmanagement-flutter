@@ -23,15 +23,17 @@ class Term extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text(
+               const  Text(
                     '''Welcome to the Inventory Stock Management App . Before you start using the App, please carefully read and agree to the following Terms and Conditions, as they govern your use of the App.    \n The user can perform various actions related to inventory management, such as:\n
 1.Viewing Inventory: Users can see the current stock levels, product details, and other relevant information about the inventory items.\n
 2.Adding New Items: Users may add new products to the inventory, specifying details like product name, description, quantity, price, etc. \n
 3.Editing Existing Items: Users can modify the information of existing inventory items, such as updating stock quantities, changing product details, or adjusting prices. \n
 5.Generating Reports: Users may generate reports that provide insights into inventory levels, sales performance, and other relevant metrics.\n
 6.Analyzing Data: Users can analyze inventory data to make informed decisions, such as identifying popular products or detecting slow-moving items.''',
-                    style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromARGB(255, 17, 0, 255))),
-                SizedBox(
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 17, 0, 255))),
+             const   SizedBox(
                   height: 15,
                 ),
                 Text(
@@ -39,10 +41,10 @@ class Term extends StatelessWidget {
                   style: GoogleFonts.acme(
                       fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                SizedBox(
+             const   SizedBox(
                   height: 10,
                 ),
-                Text(
+           const     Text(
                   '''1. By using the App, you agree to be bound by these Terms and Conditions, and any other policies and guidelines posted on the App.If you do not agree with any part of these Terms, please refrain from using the App.\n
 2. App Purpose: The App is designed to assist users in managing their inventory stock efficiently. The App provides functionalities to track, organize, and analyze inventory items, manage stock levels, set notifications for low stock,and generate reports, among other features.\n
 3. Data Privacy: We are committed to protecting your data privacy. Please refer to our Privacy Policy for details on how we collect, use, and protect your personal information.\n
@@ -52,7 +54,7 @@ class Term extends StatelessWidget {
 7. Contact: If you have any questions, concerns, or feedback regarding the App or these Terms and Conditions, please contact us.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: const Color.fromARGB(255, 243, 33, 33)),
+                      color:  Color.fromARGB(255, 243, 33, 33)),
                 )
               ],
             ),

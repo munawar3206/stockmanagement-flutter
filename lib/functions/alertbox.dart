@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stock/model/stock.dart';
 
 class CustomAlertDialog {
@@ -53,18 +54,23 @@ class CustomAlertDialog {
                     icon: Icon(Icons.remove),
                     color: Color.fromARGB(255, 0, 0, 0),
                   ),
+// -------------------------------- update quantity controller ----------------------------------
                   SizedBox(width: 10),
                   Expanded(
                     child: TextField(
                       controller: quantityController,
                       keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
+                      decoration:const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "0",
                       ),
                     ),
                   ),
+                                                                                       
                   SizedBox(width: 10),
                   IconButton(
                     onPressed: () {
@@ -72,7 +78,7 @@ class CustomAlertDialog {
                       quantity++;
                       quantityController.text = quantity.toString();
                     },
-                    icon: Icon(Icons.add),
+                    icon:const Icon(Icons.add),
                     color: Color.fromARGB(255, 0, 0, 0),
                   ),
                 ],
@@ -84,11 +90,9 @@ class CustomAlertDialog {
               onPressed: () {
                 int quantity = int.tryParse(quantityController.text) ?? 0;
 
-                stock.quantity =
-                    quantity; // Update the quantity in the Stock object
+                stock.quantity = quantity;
 
-                Navigator.of(ctx)
-                    .pop(stock); // Pass the updated Stock object back
+                Navigator.of(ctx).pop(stock);
               },
               style: ElevatedButton.styleFrom(
                 primary: Color.fromARGB(255, 0, 0, 255),

@@ -1,16 +1,19 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stock/screens/Item.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 import '../functions/image.dart';
+
 class Add extends StatefulWidget {
   const Add({Key? key});
   @override
   State<Add> createState() => _AddState();
 }
+
 class _AddState extends State<Add> {
   final _itemNameController = TextEditingController();
   final _openingStockController = TextEditingController();
@@ -20,12 +23,12 @@ class _AddState extends State<Add> {
   final _costPriceController = TextEditingController();
   final StockRepository stockRepository = StockRepository();
   XFile? pickedImage;
-Future<void> _pickImage() async {
+  Future<void> _pickImage() async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Choose From...'),
+          title: const Text('Choose From...'),
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -49,7 +52,7 @@ Future<void> _pickImage() async {
                     pickedImage = picked;
                   });
                 },
-                child: Text('Gallery'),
+                child:const Text('Gallery'),
               ),
             ],
           ),
@@ -57,13 +60,15 @@ Future<void> _pickImage() async {
       },
     );
   }
- String? _itemNameValidator(String? value) {
+
+  String? _itemNameValidator(String? value) {
     if (value == null || value.isEmpty) {
       return '';
     }
     return null;
   }
-String? _numericValidator(String? value) {
+
+  String? _numericValidator(String? value) {
     if (value == null || value.isEmpty) {
       return '';
     }
@@ -72,6 +77,7 @@ String? _numericValidator(String? value) {
     }
     return null;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +119,7 @@ String? _numericValidator(String? value) {
                     builder: (context) => Item(),
                   ));
             },
-            child: Text(
+            child:const Text(
               'SAVE',
               style: TextStyle(color: Color.fromARGB(255, 0, 13, 255)),
             ),
@@ -131,7 +137,7 @@ String? _numericValidator(String? value) {
                   height: 100,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 207, 216, 255),
+                    color: const Color.fromARGB(255, 207, 216, 255),
                     border: Border.all(width: 8, color: Colors.white),
                   ),
                   child: Stack(
@@ -152,21 +158,21 @@ String? _numericValidator(String? value) {
                               iconSize: 68,
                               color: Color.fromARGB(255, 30, 110, 176),
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+            const  SizedBox(height: 10),
               pickedImage == null
-                  ? Text(
+                  ? const Text(
                       'Add Image',
                       style: TextStyle(
                         color: Color.fromARGB(255, 0, 140, 255),
                       ),
                     )
-                  : SizedBox(),
-              SizedBox(height: 20),
+                  :const SizedBox(),
+             const SizedBox(height: 20),
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -226,6 +232,7 @@ String? _numericValidator(String? value) {
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
     );
   }
+
   TextFormField buildTextFormField(
     String label,
     TextEditingController controller,
@@ -236,10 +243,11 @@ String? _numericValidator(String? value) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      // inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
         labelText: label,
         hintText: hintText,
-        border: UnderlineInputBorder(),
+        border: const UnderlineInputBorder(),
         errorText: validator != null ? validator(controller.text) : null,
       ),
     );

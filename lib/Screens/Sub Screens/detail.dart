@@ -82,7 +82,8 @@ class _DetailState extends State<Detail> {
                     Text(widget.stock.itemname ?? 'Unknown Item'),
                   ],
                 ),
-                 subtitle: Text('Stock: ${widget.stock.openingStock! + (widget.stock.quantity ?? 0)}'),
+                subtitle: Text(
+                    'Stock: ${widget.stock.openingStock! + (widget.stock.quantity ?? 0)}'),
                 trailing: Text(
                   'Stall No: ${widget.stock.stallNo}',
                   style: const TextStyle(
@@ -104,24 +105,24 @@ class _DetailState extends State<Detail> {
                   ],
                 ),
                 subtitle: Text('Selling Price: ${widget.stock.costPrice}'),
-
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
-GestureDetector(
-  onTap: () async {
-    Stock? updatedStock = await CustomAlertDialog.showAlertDialog(context, widget.stock);
+          GestureDetector(
+            onTap: () async {
+              Stock? updatedStock = await CustomAlertDialog.showAlertDialog(
+                  context, widget.stock);
 
-    if (updatedStock != null) {
-      setState(() {
-        widget.stock = updatedStock;
-      });
-    }
-  },
-
+              if (updatedStock != null) {
+                setState(() {
+                  widget.stock = updatedStock;
+                });
+                stockRepository.updateStock(updatedStock);
+              }
+            },
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
               padding: EdgeInsets.all(15),

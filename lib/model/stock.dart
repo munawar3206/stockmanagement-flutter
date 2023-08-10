@@ -31,7 +31,7 @@ class Stock {
    @HiveField(8) 
   int? quantity;
 
-  var costprice; 
+  
 
   Stock({
     this.id,
