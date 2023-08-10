@@ -42,6 +42,7 @@ class CustomAlertDialog {
               SizedBox(height: 10),
               Text(stock.itemname ?? 'Unknown Item'),
               SizedBox(height: 10),
+              // -------------------------------- update quantity controller ----------------------------------
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -54,7 +55,7 @@ class CustomAlertDialog {
                     icon: Icon(Icons.remove),
                     color: Color.fromARGB(255, 0, 0, 0),
                   ),
-// -------------------------------- update quantity controller ----------------------------------
+
                   SizedBox(width: 10),
                   Expanded(
                     child: TextField(

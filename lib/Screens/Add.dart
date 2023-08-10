@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stock/screens/Item.dart';
@@ -28,7 +28,7 @@ class _AddState extends State<Add> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Choose From...'),
+          title: Text('Choose From...'),
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -52,7 +52,7 @@ class _AddState extends State<Add> {
                     pickedImage = picked;
                   });
                 },
-                child:const Text('Gallery'),
+                child: Text('Gallery'),
               ),
             ],
           ),
@@ -119,7 +119,7 @@ class _AddState extends State<Add> {
                     builder: (context) => Item(),
                   ));
             },
-            child:const Text(
+            child: Text(
               'SAVE',
               style: TextStyle(color: Color.fromARGB(255, 0, 13, 255)),
             ),
@@ -137,7 +137,7 @@ class _AddState extends State<Add> {
                   height: 100,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 207, 216, 255),
+                    color: Color.fromARGB(255, 207, 216, 255),
                     border: Border.all(width: 8, color: Colors.white),
                   ),
                   child: Stack(

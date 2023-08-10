@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
+import 'package:stock/screens/Sub%20Screens/alertbox.dart';
 import 'package:stock/screens/Sub%20Screens/update.dart';
-import '../../functions/alertbox.dart';
+
 
 class Detail extends StatefulWidget {
   Stock stock;
