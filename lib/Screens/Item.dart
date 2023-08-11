@@ -17,8 +17,6 @@ class Item extends StatelessWidget {
     stocksNotifier.value = stockRepository.getAllStock();
   }
 
-  Future<void> _pickImage() async {}
-
   Future<void> _deleteStock(int index) async {
     stockRepository.deleteStock(index);
     loadStocks();
@@ -99,13 +97,6 @@ class Item extends StatelessWidget {
                                         )
                                       : null,
                                 ),
-                                child: (stock.imagePath == null)
-                                    ? IconButton(
-                                        onPressed: _pickImage,
-                                        icon: const Icon(Icons.camera_enhance,
-                                            size: 30),
-                                      )
-                                    : null,
                               ),
                               title: Text(stock.itemname!),
                               subtitle: Text(

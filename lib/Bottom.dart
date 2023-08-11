@@ -5,8 +5,7 @@ import 'package:stock/Screens/Home.dart';
 import 'package:stock/Screens/Item.dart';
 import 'package:stock/Screens/setting.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
-
-import 'Screens/History.dart';
+import 'package:stock/screens/profit.dart';
 
 class Bottom extends StatefulWidget {
   @override
@@ -17,11 +16,11 @@ class _BottomState extends State<Bottom> {
   int _currentIndex = 0;
 
   final List<Widget> bottomBarPages = [
-    Home(),
+    const Home(),
     Item(),
-    Add(),
-    History(),
-    Setting(),
+    const Add(),
+    const Profit(),
+    const Setting(),
   ];
 
   @override
@@ -36,12 +35,13 @@ class _BottomState extends State<Bottom> {
           currentIndex: _currentIndex,
           items: [
             FloatingNavbarItem(icon: Icons.home, title: 'Home'),
-            FloatingNavbarItem(icon: Icons.shopping_basket, title: 'Item'),
+            FloatingNavbarItem(icon: Icons.inventory, title: 'Item'),
             FloatingNavbarItem(
               icon: Icons.add,
               title: 'Add',
             ),
-            FloatingNavbarItem(icon: Icons.history, title: 'History'),
+            FloatingNavbarItem(
+                icon: Icons.trending_up_outlined, title: 'Profit'),
             FloatingNavbarItem(icon: Icons.settings, title: 'Setting'),
           ],
         ),
