@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/Screens/Sub%20Screens/detail.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
+import 'package:lottie/lottie.dart';
 
 class Item extends StatelessWidget {
   final StockRepository stockRepository = StockRepository();
@@ -75,7 +76,19 @@ class Item extends StatelessWidget {
               builder: (context, stocks, _) {
                 if (stocks.isEmpty) {
                   return Center(
-                    child: Image.asset('asset/loti.png'),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset('asset/data.json'),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        // Text(
+                        //   'Empty Page',
+                        //   style: TextStyle(fontWeight: FontWeight.bold),
+                        // )
+                      ],
+                    ),
                   );
                 }
                 return ListView.builder(
