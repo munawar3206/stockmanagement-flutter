@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
+// stock calculation
 class StockUtils {
   final List<TextEditingController> quantityControllers;
 
@@ -44,5 +45,13 @@ class StockUtils {
       quantities.add(quantity);
     }
     return quantities;
+  }
+}
+// image
+class ImageUtils {
+  static Future<XFile?> pickImage(ImageSource source) async {
+    final ImagePicker imagePicker = ImagePicker();
+    final picked = await imagePicker.pickImage(source: source);
+    return picked;
   }
 }

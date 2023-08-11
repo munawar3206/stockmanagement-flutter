@@ -73,8 +73,14 @@ class Item extends StatelessWidget {
             child: ValueListenableBuilder<List<Stock>>(
               valueListenable: stocksNotifier,
               builder: (context, stocks, _) {
+                if (stocks.isEmpty) {
+                  return Center(
+                    child: Image.asset('asset/loti.png'),
+                  );
+                }
                 return ListView.builder(
                   itemCount: stocks.length,
+                  reverse: false,
                   itemBuilder: (BuildContext context, int index) {
                     Stock stock = stocks[index];
                     return Padding(

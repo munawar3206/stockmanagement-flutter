@@ -6,7 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:stock/screens/Item.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
-import '../functions/image.dart';
+import 'package:stock/utility/utilities.dart';
+
 
 class Add extends StatefulWidget {
   const Add({Key? key});

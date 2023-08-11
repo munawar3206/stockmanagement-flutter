@@ -76,32 +76,24 @@ class _ProfitState extends State<Profit> {
                                     : null,
                               ),
                             ),
-                            title: Row(
-                              children: [
-                                Text(
-                                  stock.itemname!,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                  ),
-                                ),
-                              
-                              ],
+                            // trailing:
+                            title: Text(
+                              stock.itemname!,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
                             ),
                             subtitle: Text('$totalProfit'),
                             textColor: Color.fromARGB(255, 255, 0, 0),
-                              
                           ),
-                          
                         ),
-                        
                       ),
                     ],
                   );
                 },
-              )
-              
+              ),
             ),
           ),
         ],
