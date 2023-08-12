@@ -44,56 +44,55 @@ class _ProfitState extends State<Profit> {
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
       body: Column(
         children: [
+          // ------------------------------------------------------------------
           Expanded(
-            child: Card(
-              child: ListView.builder(
-                itemCount: ProfitsList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final stock = ProfitsList[index];
-                  final int openingstock = stock.openingStock ?? 0;
-                  final int sellingPrice = stock.sellingPrice ?? 0;
-                  final int costPrice = stock.costPrice ?? 0;
-                  final int totalProfit =
-                      openingstock * sellingPrice - (openingstock * costPrice);
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          color: Color.fromARGB(255, 190, 209, 246),
-                          child: ListTile(
-                            leading: Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                image: stock.imagePath != null
-                                    ? DecorationImage(
-                                        image:
-                                            FileImage(File(stock.imagePath!)),
-                                        fit: BoxFit.cover,
-                                      )
-                                    : null,
-                              ),
+            child: ListView.builder(
+              itemCount: ProfitsList.length,
+              itemBuilder: (BuildContext context, int index) {                       
+                final stock = ProfitsList[index];                                    /*calculation for profit of stock */
+                final int openingstock = stock.openingStock ?? 0;
+                final int sellingPrice = stock.sellingPrice ?? 0;
+                final int costPrice = stock.costPrice ?? 0;
+                final int totalProfit =
+                    openingstock * sellingPrice - (openingstock * costPrice);
+                    // -----------------------------------------------------------------------------
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        color: Color.fromARGB(255, 190, 209, 246),
+                        child: ListTile(
+                          leading: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              image: stock.imagePath != null
+                                  ? DecorationImage(
+                                      image: FileImage(File(stock.imagePath!)),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null,
                             ),
-                            // trailing:
-                            title: Text(
-                              stock.itemname!,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                              ),
-                            ),
-                            subtitle: Text('$totalProfit'),
-                            textColor: Color.fromARGB(255, 255, 0, 0),
                           ),
+                          // trailing
+                          title: Text(
+                            stock.itemname!,
+                            style: GoogleFonts.acme(
+                                color: const Color.fromARGB(255, 0, 0, 0)),
+                          ),
+                          subtitle: Text(
+                            'Profit Is : $totalProfit',
+                            style: GoogleFonts.acme(),
+                          ),
+                          textColor: Color.fromARGB(255, 255, 0, 0),
                         ),
                       ),
-                    ],
-                  );
-                },
-              ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ],

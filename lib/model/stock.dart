@@ -8,10 +8,10 @@ class Stock {
   int? id;
 
   @HiveField(1)
- String? itemname;
+  String? itemname;
 
   @HiveField(2)
- int? openingStock;
+  int? openingStock;
 
   @HiveField(3)
   int? reorderStock;
@@ -25,13 +25,11 @@ class Stock {
   @HiveField(6)
   int? costPrice;
 
-   @HiveField(7)
+  @HiveField(7)
   String? imagePath;
 
-   @HiveField(8) 
+  @HiveField(8)
   int? quantity;
-
-  
 
   Stock({
     this.id,
@@ -39,10 +37,9 @@ class Stock {
     required this.openingStock,
     required this.reorderStock,
     required this.stallNo,
-    required this.sellingPrice,
+    this.sellingPrice,
     required this.costPrice,
     this.imagePath,
     this.quantity,
   });
-
 }

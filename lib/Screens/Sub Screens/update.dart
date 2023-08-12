@@ -5,12 +5,13 @@ import 'package:stock/model/stock.dart';
 class Update extends StatelessWidget {
   final Stock stock;
 
-  Update({required this.stock});
+  Update({super.key, required this.stock});
 
   final _itemNameController = TextEditingController();
   final _stallNumberController = TextEditingController();
   final _sellingPriceController = TextEditingController();
   final _costPriceController = TextEditingController();
+  final _openingStockController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class Update extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              _saveChanges(context);
+              _saveChanges(context); /*call update */
             },
             child: Text(
               "SAVE",
@@ -44,25 +45,30 @@ class Update extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          height: 400,
+          height: 500,
           child: Card(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildTextFormField('Item Name', _itemNameController,
-                      TextInputType.text, 'Enter Item Name'),
-                  SizedBox(height: 16),
-                  _buildTextFormField('Stall No:', _stallNumberController,
-                      TextInputType.text, 'A2...'),
-                  SizedBox(height: 16),
-                  _buildTextFormField('Selling Price', _sellingPriceController,
-                      TextInputType.number, '₹'),
-                  SizedBox(height: 16),
-                  _buildTextFormField('Cost Price', _costPriceController,
-                      TextInputType.number, '₹'),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildTextFormField('Item Name', _itemNameController,
+                        TextInputType.text, 'Enter Item Name'),
+                    SizedBox(height: 16),
+                    _buildTextFormField('Stall No:', _stallNumberController,
+                        TextInputType.text, 'A2...'),
+                    SizedBox(height: 16),
+                    _buildTextFormField('Selling Price',
+                        _sellingPriceController, TextInputType.number, '₹'),
+                    SizedBox(height: 16),
+                    _buildTextFormField('Cost Price', _costPriceController,
+                        TextInputType.number, '₹'),
+                    SizedBox(height: 16),
+                    _buildTextFormField('OpeningStock', _openingStockController,
+                        TextInputType.number, '123....'),
+                  ],
+                ),
               ),
             ),
           ),
@@ -71,11 +77,13 @@ class Update extends StatelessWidget {
     );
   }
 
+  /*updating */
   void _initControllers() {
     _itemNameController.text = stock.itemname ?? '';
     _stallNumberController.text = stock.stallNo ?? '';
     _sellingPriceController.text = stock.sellingPrice.toString();
     _costPriceController.text = stock.costPrice.toString();
+    _openingStockController.text = stock.openingStock.toString();
   }
 
   void _saveChanges(BuildContext context) {
@@ -86,7 +94,7 @@ class Update extends StatelessWidget {
       stallNo: _stallNumberController.text,
       sellingPrice: int.tryParse(_sellingPriceController.text) ?? 0,
       costPrice: int.tryParse(_costPriceController.text) ?? 0,
-      openingStock: stock.openingStock,
+      openingStock: int.tryParse(_openingStockController.text),
       reorderStock: stock.reorderStock,
     );
 

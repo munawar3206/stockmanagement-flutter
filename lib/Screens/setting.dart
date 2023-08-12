@@ -94,7 +94,8 @@ class _SettingState extends State<Setting> {
         break;
       case 'Exit':
         exit(0);
-
+      case 'Reset App':
+        break;
       default:
         break;
     }

@@ -18,16 +18,18 @@ class Item extends StatelessWidget {
     stocksNotifier.value = stockRepository.getAllStock();
   }
 
+  List<Stock> filterStocks(List<Stock> stocks, String query) {
+    return stocks                                                   /*search query */
+        .where((stock) =>
+            stock.itemname!.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+  }
+
   Future<void> _deleteStock(int index) async {
     stockRepository.deleteStock(index);
     loadStocks();
   }
-
-  Future<void> _updateStock(int index, Stock updatedStock) async {
-    stockRepository.updateStock(updatedStock);
-    loadStocks();
-  }
-
+// ------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +51,11 @@ class Item extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: TextFormField(
+              onChanged: (value) {
+                final filteredStocks =
+                    filterStocks(stocksNotifier.value, value);
+                stocksNotifier.value = filteredStocks;
+              },
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(45),
@@ -83,14 +90,11 @@ class Item extends StatelessWidget {
                         SizedBox(
                           height: 5,
                         ),
-                        // Text(
-                        //   'Empty Page',
-                        //   style: TextStyle(fontWeight: FontWeight.bold),
-                        // )
                       ],
                     ),
                   );
                 }
+
                 return ListView.builder(
                   itemCount: stocks.length,
                   reverse: false,
@@ -111,7 +115,7 @@ class Item extends StatelessWidget {
                                   image: stock.imagePath != null
                                       ? DecorationImage(
                                           image:
-                                              FileImage(File(stock.imagePath!)),
+                                              FileImage(File(stock.imagePath!)),      /*image using ternary operator */
                                           fit: BoxFit.cover,
                                         )
                                       : null,
@@ -141,7 +145,7 @@ class Item extends StatelessWidget {
                                       return AlertDialog(
                                         title: const Text('Confirm Deletion'),
                                         content: const Text(
-                                            'Are you sure you want to delete this Stock?'),
+                                            'Are you sure you want to delete this Stock?'),    /*Delete popbox */
                                         actions: [
                                           TextButton(
                                             onPressed: () {

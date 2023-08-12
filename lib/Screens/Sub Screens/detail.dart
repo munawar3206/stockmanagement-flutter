@@ -1,18 +1,17 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/services.dart';
+
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 import 'package:stock/screens/Sub%20Screens/update.dart';
 
 import 'alertbox.dart';
 
-
 class Detail extends StatefulWidget {
   Stock stock;
 
-  Detail({required this.stock});
+  Detail({super.key, required this.stock});
 
   @override
   _DetailState createState() => _DetailState();
@@ -86,7 +85,9 @@ class _DetailState extends State<Detail> {
                   ],
                 ),
                 subtitle: Text(
-                    'Stock: ${widget.stock.openingStock! + (widget.stock.quantity ?? 0)}'),
+                  //  'Stock: ${widget.stock.openingStock! + (widget.stock.quantity ?? 0)}'
+                  'Stock:${widget.stock.openingStock! + (widget.stock.quantity ?? 0)}',
+                ),
                 trailing: Text(
                   'Stall No: ${widget.stock.stallNo}',
                   style: const TextStyle(
@@ -107,14 +108,14 @@ class _DetailState extends State<Detail> {
                     Text('Selling Price: ${widget.stock.sellingPrice}'),
                   ],
                 ),
-                subtitle: Text('Selling Price: ${widget.stock.costPrice}'),
+                subtitle: Text('Actual Price: ${widget.stock.costPrice}'),
               ),
             ),
           ),
           const SizedBox(
             height: 50,
           ),
-         GestureDetector(
+          GestureDetector(
             onTap: () async {
               Stock? updatedStock = await CustomAlertDialog.showAlertDialog(
                   context, widget.stock, quantityController);

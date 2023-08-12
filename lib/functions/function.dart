@@ -6,6 +6,7 @@ class StockRepository {
 
   List<Stock> getAllStock() {
     return _stockBox.values.toList();
+  
   }
 
   void addStock(Stock stock) {

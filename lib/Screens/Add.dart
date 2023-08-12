@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stock/screens/Item.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 import 'package:stock/utility/utilities.dart';
-
 
 class Add extends StatefulWidget {
   const Add({Key? key});
@@ -164,7 +162,7 @@ class _AddState extends State<Add> {
                   ),
                 ),
               ),
-            const  SizedBox(height: 10),
+              const SizedBox(height: 10),
               pickedImage == null
                   ? const Text(
                       'Add Image',
@@ -172,8 +170,8 @@ class _AddState extends State<Add> {
                         color: Color.fromARGB(255, 0, 140, 255),
                       ),
                     )
-                  :const SizedBox(),
-             const SizedBox(height: 20),
+                  : const SizedBox(),
+              const SizedBox(height: 20),
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -246,11 +244,13 @@ class _AddState extends State<Add> {
       keyboardType: keyboardType,
       // inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
       decoration: InputDecoration(
-        labelText: label,
-        hintText: hintText,
-        border: const UnderlineInputBorder(),
-        errorText: validator != null ? validator(controller.text) : null,
-      ),
+          labelText: label,
+          hintText: hintText,
+          border: const UnderlineInputBorder(),
+          errorText: validator != null ? validator(controller.text) : null,
+          errorStyle: TextStyle(
+            color: const Color.fromARGB(255, 20, 5, 4),
+          )),
     );
   }
 }
