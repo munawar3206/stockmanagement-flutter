@@ -13,25 +13,30 @@ class Item extends StatelessWidget {
   Item({Key? key}) : super(key: key) {
     loadStocks();
   }
- List<Stock> loadStocks() {
-  final allStocks = stockRepository.getAllStock();
-  stocksNotifier.value = allStocks;
-  return allStocks;
-}
-Future<void> _deleteStock(int index) async {
-  stockRepository.deleteStock(index);
-  stocksNotifier.value.removeAt(index); 
-  stocksNotifier.value = List.from(stocksNotifier.value); 
-}
 
-  List<Stock> filterStocks(List<Stock> stocks, String query) {
-    return stocks                                                   /*search query */
-        .where((stock) =>
-            stock.itemname!.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+  List<Stock> loadStocks() {
+    final allStocks = stockRepository.getAllStock();
+    stocksNotifier.value = allStocks;
+    return allStocks;
   }
 
-// ------------------------------------------------
+  Future<void> _deleteStock(int index) async {
+    stockRepository.deleteStock(index);
+    stocksNotifier.value.removeAt(index);
+    stocksNotifier.value = List.from(stocksNotifier.value);
+  }
+
+  List<Stock> filterStocks(List<Stock> stocks, String query) {
+    if (query.isEmpty) {
+      return stocksNotifier.value;
+    } else {
+      return stocks
+          .where((stock) =>
+              stock.itemname!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +60,7 @@ Future<void> _deleteStock(int index) async {
             child: TextFormField(
               onChanged: (value) {
                 final filteredStocks =
-                    filterStocks(stocksNotifier.value, value);
+                    filterStocks(stockRepository.getAllStock(), value);
                 stocksNotifier.value = filteredStocks;
               },
               decoration: InputDecoration(
@@ -117,7 +122,7 @@ Future<void> _deleteStock(int index) async {
                                   image: stock.imagePath != null
                                       ? DecorationImage(
                                           image:
-                                              FileImage(File(stock.imagePath!)),      /*image using ternary operator */
+                                              FileImage(File(stock.imagePath!)),                                         
                                           fit: BoxFit.cover,
                                         )
                                       : null,
@@ -147,7 +152,7 @@ Future<void> _deleteStock(int index) async {
                                       return AlertDialog(
                                         title: const Text('Confirm Deletion'),
                                         content: const Text(
-                                            'Are you sure you want to delete this Stock?'),    /*Delete popbox */
+                                            'Are you sure you want to delete this Stock?'),
                                         actions: [
                                           TextButton(
                                             onPressed: () {

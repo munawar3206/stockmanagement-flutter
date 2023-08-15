@@ -1,9 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stock/Screens/Sub%20Screens/detail.dart';
 import 'package:stock/model/stock.dart';
-
 import 'item.dart';
 
 class Home extends StatefulWidget {
@@ -18,12 +17,19 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    loadRecentlyAddedStocks(); // Call the function to load recently added stocks
+    loadRecentlyAddedStocks();
+  }
+
+  String getPresentDate() {
+    DateTime now = DateTime.now();
+    String formattedDate =
+        "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
+    return formattedDate;
   }
 
   void loadRecentlyAddedStocks() {
     Item item = Item();
-    recentlyAddedStocks = item.loadStocks().take(3).toList();
+    recentlyAddedStocks = item.loadStocks().take(4).toList();
   }
 
   @override
@@ -47,11 +53,11 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(15.0),
                 child: Card(
                   elevation: 8,
-                  color: Color.fromARGB(255, 13, 5, 78),
+                  color: const Color.fromARGB(255, 13, 5, 78),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      margin: EdgeInsets.all(12.0),
+                      margin: const EdgeInsets.all(12.0),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -66,8 +72,8 @@ class _HomeState extends State<Home> {
                                       fontSize: 20,
                                       color: Colors.white),
                                 ),
-                                Spacer(),
-                                Row(
+                                const Spacer(),
+                                const Row(
                                   children: [
                                     Icon(Icons.filter_alt, color: Colors.white),
                                     Text(
@@ -106,8 +112,8 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10),
-                            Flex(
+                            const SizedBox(height: 10),
+                            const Flex(
                               direction: Axis.horizontal,
                               children: [
                                 Expanded(
@@ -126,7 +132,7 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Flex(
                               direction: Axis.horizontal,
                               children: [
@@ -150,8 +156,8 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10),
-                            Flex(
+                            const SizedBox(height: 10),
+                            const Flex(
                               direction: Axis.horizontal,
                               children: [
                                 Expanded(
@@ -178,7 +184,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 0, 20, 0),
               child: Row(
@@ -190,23 +196,26 @@ class _HomeState extends State<Home> {
                       fontSize: 20,
                     ),
                   ),
-                  // Spacer(),
-                  // Icon(Icons.filter_alt),
-                  // Text(
-                  //   "Week",
-                  //   style: TextStyle(fontWeight: FontWeight.w800),
-                  // ),
+                  const Spacer(),
+                  const Icon(Icons.calendar_month_sharp),
+                  Text(
+                    "${getPresentDate()}",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                   // Icon(Icons.arrow_drop_down)
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   Container(
-                    color: Color.fromARGB(255, 200, 209, 253),
+                    color: const Color.fromARGB(255, 200, 209, 253),
                     width: MediaQuery.of(context).size.width * 1.0,
                     height: MediaQuery.of(context).size.height * 0.425,
                     child: ListView.builder(
@@ -214,10 +223,9 @@ class _HomeState extends State<Home> {
                       itemBuilder: (context, index) {
                         Stock stock = recentlyAddedStocks[index];
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(5),
                           child: Card(
-                            elevation: 10,
-                            color: Color.fromARGB(255, 8, 0, 93),
+                            color: const Color.fromARGB(255, 255, 255, 255),
                             child: ListTile(
                               leading: Container(
                                 height: 50,
@@ -235,12 +243,22 @@ class _HomeState extends State<Home> {
                               ),
                               title: Text(
                                 stock.itemname ?? '',
-                                style: GoogleFonts.acme(color: Colors.white),
+                                style: GoogleFonts.acme(
+                                    color: const Color.fromARGB(255, 0, 0, 0)),
                               ),
                               subtitle: Text(
                                 stock.stallNo ?? '',
-                                style: GoogleFonts.acme(color: Colors.white),
+                                style: GoogleFonts.acme(
+                                    color: const Color.fromARGB(255, 0, 0, 0)),
                               ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Detail(stock: stock),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         );
@@ -253,7 +271,7 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      backgroundColor: Color.fromARGB(255, 222, 228, 255),
+      backgroundColor: const Color.fromARGB(255, 222, 228, 255),
     );
   }
 }
