@@ -13,10 +13,16 @@ class Item extends StatelessWidget {
   Item({Key? key}) : super(key: key) {
     loadStocks();
   }
-
-  void loadStocks() {
-    stocksNotifier.value = stockRepository.getAllStock();
-  }
+ List<Stock> loadStocks() {
+  final allStocks = stockRepository.getAllStock();
+  stocksNotifier.value = allStocks;
+  return allStocks;
+}
+Future<void> _deleteStock(int index) async {
+  stockRepository.deleteStock(index);
+  stocksNotifier.value.removeAt(index); 
+  stocksNotifier.value = List.from(stocksNotifier.value); 
+}
 
   List<Stock> filterStocks(List<Stock> stocks, String query) {
     return stocks                                                   /*search query */
@@ -25,10 +31,6 @@ class Item extends StatelessWidget {
         .toList();
   }
 
-  Future<void> _deleteStock(int index) async {
-    stockRepository.deleteStock(index);
-    loadStocks();
-  }
 // ------------------------------------------------
   @override
   Widget build(BuildContext context) {

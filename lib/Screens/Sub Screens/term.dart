@@ -32,7 +32,7 @@ class Term extends StatelessWidget {
 6.Analyzing Data: Users can analyze inventory data to make informed decisions, such as identifying popular products or detecting slow-moving items.''',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 17, 0, 255))),
+                        color: Color.fromARGB(255, 0, 0, 0))),
              const   SizedBox(
                   height: 15,
                 ),
@@ -54,7 +54,7 @@ class Term extends StatelessWidget {
 7. Contact: If you have any questions, concerns, or feedback regarding the App or these Terms and Conditions, please contact us.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color:  Color.fromARGB(255, 243, 33, 33)),
+                      color:  Color.fromARGB(255, 0, 0, 0)),
                 )
               ],
             ),

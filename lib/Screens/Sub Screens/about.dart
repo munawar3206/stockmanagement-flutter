@@ -36,14 +36,14 @@ class About extends StatelessWidget {
                   '''               Welcome to InventoWare, a powerful and comprehensive inventory stock management application developed by Munawar.With a mission to simplify inventory control for businesses of all sizes, InventoWare offers an array of advanced features to streamline your inventory processes, optimize stock levels, and enhance overall efficiency.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 0, 0, 255)),
+                      color: Color.fromARGB(255, 0, 0, 0)),
                 ),
                 Text(
                   ''' \nInternship Experience at Bridgeon Solution Kakkanchery,Malappuram:
 During my internship at Bridgeon Solution Kakkanchery, I had the privilege of honing my skills in inventory stock management and gaining hands-on experience in implementing cutting-edge solutions. Working alongside talented mentors and peers, I was exposed to the latest industry practices, which have greatly influenced the development of InventoWare. It was an enriching experience that helped me refine my expertise and passion for revolutionizing inventory management.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 0, 0, 255)),
+                      color: Color.fromARGB(255, 0, 0, 0)),
                 ),
                 Text(
                   '''\nStay Connected with Munawar:

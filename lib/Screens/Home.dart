@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stock/model/stock.dart';
 
-import 'package:stock/Screens/Sub%20Screens/barchart.dart';
+import 'item.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key});
@@ -11,6 +14,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Stock> recentlyAddedStocks = [];
+  @override
+  void initState() {
+    super.initState();
+    loadRecentlyAddedStocks(); // Call the function to load recently added stocks
+  }
+
+  void loadRecentlyAddedStocks() {
+    Item item = Item();
+    recentlyAddedStocks = item.loadStocks().take(3).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,19 +184,19 @@ class _HomeState extends State<Home> {
               child: Row(
                 children: [
                   Text(
-                    "Analytics",
+                    "Recently Added Stocks",
                     style: GoogleFonts.acme(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
                   ),
-                  Spacer(),
-                  Icon(Icons.filter_alt),
-                  Text(
-                    "Week",
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                  Icon(Icons.arrow_drop_down)
+                  // Spacer(),
+                  // Icon(Icons.filter_alt),
+                  // Text(
+                  //   "Week",
+                  //   style: TextStyle(fontWeight: FontWeight.w800),
+                  // ),
+                  // Icon(Icons.arrow_drop_down)
                 ],
               ),
             ),
@@ -190,12 +205,47 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  SingleChildScrollView(),
                   Container(
                     color: Color.fromARGB(255, 200, 209, 253),
                     width: MediaQuery.of(context).size.width * 1.0,
                     height: MediaQuery.of(context).size.height * 0.425,
-                    child: Barchart(),
+                    child: ListView.builder(
+                      itemCount: recentlyAddedStocks.length,
+                      itemBuilder: (context, index) {
+                        Stock stock = recentlyAddedStocks[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 10,
+                            color: Color.fromARGB(255, 8, 0, 93),
+                            child: ListTile(
+                              leading: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  image: stock.imagePath != null
+                                      ? DecorationImage(
+                                          image:
+                                              FileImage(File(stock.imagePath!)),
+                                          fit: BoxFit.cover,
+                                        )
+                                      : null,
+                                ),
+                              ),
+                              title: Text(
+                                stock.itemname ?? '',
+                                style: GoogleFonts.acme(color: Colors.white),
+                              ),
+                              subtitle: Text(
+                                stock.stallNo ?? '',
+                                style: GoogleFonts.acme(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
