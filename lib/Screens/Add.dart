@@ -40,7 +40,7 @@ class _AddState extends State<Add> {
                     pickedImage = picked;
                   });
                 },
-                child: Text('Camera'),
+                child: const Text('Camera'),
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -51,7 +51,7 @@ class _AddState extends State<Add> {
                     pickedImage = picked;
                   });
                 },
-                child: Text('Gallery'),
+                child: const Text('Gallery'),
               ),
             ],
           ),
@@ -89,7 +89,7 @@ class _AddState extends State<Add> {
               MaterialPageRoute(builder: (context) => Item()),
             );
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.black,
         ),
         title: Text(
@@ -118,7 +118,7 @@ class _AddState extends State<Add> {
                     builder: (context) => Item(),
                   ));
             },
-            child: Text(
+            child: const Text(
               'SAVE',
               style: TextStyle(color: Color.fromARGB(255, 0, 13, 255)),
             ),
@@ -136,7 +136,7 @@ class _AddState extends State<Add> {
                   height: 100,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 207, 216, 255),
+                    color: const Color.fromARGB(255, 207, 216, 255),
                     border: Border.all(width: 8, color: Colors.white),
                   ),
                   child: Stack(
@@ -153,9 +153,9 @@ class _AddState extends State<Add> {
                               onPressed: () {
                                 _pickImage();
                               },
-                              icon: Icon(Icons.camera_enhance_sharp),
+                              icon: const Icon(Icons.camera_enhance_sharp),
                               iconSize: 68,
-                              color: Color.fromARGB(255, 30, 110, 176),
+                              color: const Color.fromARGB(255, 30, 110, 176),
                             )
                           : const SizedBox(),
                     ],
@@ -185,7 +185,7 @@ class _AddState extends State<Add> {
                         'Enter Item Name',
                         _itemNameValidator,
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       buildTextFormField(
                         'Opening Stock',
                         _openingStockController,
@@ -193,7 +193,7 @@ class _AddState extends State<Add> {
                         '0.0',
                         _numericValidator,
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       buildTextFormField(
                         'Reorder Stock',
                         _reorderStockController,
@@ -201,10 +201,10 @@ class _AddState extends State<Add> {
                         '0.0',
                         _numericValidator,
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       buildTextFormField('Stall No:', _stallNumberController,
                           TextInputType.text, 'A2...', _itemNameValidator),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       buildTextFormField(
                         'Selling Price',
                         _sellingPriceController,
@@ -212,7 +212,7 @@ class _AddState extends State<Add> {
                         '₹',
                         _numericValidator,
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       buildTextFormField(
                         'Cost Price',
                         _costPriceController,

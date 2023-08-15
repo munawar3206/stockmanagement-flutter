@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:stock/Screens/Sub%20Screens/term.dart';
@@ -43,7 +42,7 @@ class _SettingState extends State<Setting> {
           padding: const EdgeInsets.all(8.0),
           child: ListView.separated(
             itemCount: itemsList.length,
-            separatorBuilder: (context, index) => Divider(
+            separatorBuilder: (context, index) => const Divider(
               color: Color.fromARGB(255, 177, 190, 251),
               thickness: 2,
             ),
@@ -60,7 +59,7 @@ class _SettingState extends State<Setting> {
                       ),
                       title: Text(
                         pages.name,
-                        style: TextStyle(
+                        style:const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
                         ),
@@ -84,7 +83,7 @@ class _SettingState extends State<Setting> {
       case 'Terms and Conditions':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Term()),
+          MaterialPageRoute(builder: (context) =>const Term()),
         );
       case 'About':
         Navigator.push(

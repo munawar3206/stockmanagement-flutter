@@ -41,7 +41,7 @@ class CustomAlertDialog {
                 ),
               ),
               SizedBox(height: 10),
-              Text(stock.itemname ?? 'Unknown Item'),
+              Text(stock.itemname!),
               SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

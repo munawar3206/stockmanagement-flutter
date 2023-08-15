@@ -50,9 +50,9 @@ class _ProfitState extends State<Profit> {
               itemCount: ProfitsList.length,
               itemBuilder: (BuildContext context, int index) {                       
                 final stock = ProfitsList[index];                                    /*calculation for profit of stock */
-                final int openingstock = stock.openingStock ?? 0;
-                final int sellingPrice = stock.sellingPrice ?? 0;
-                final int costPrice = stock.costPrice ?? 0;
+                final int openingstock = stock.openingStock!;
+                final int sellingPrice = stock.sellingPrice!;
+                final int costPrice = stock.costPrice!;
                 final int totalProfit =
                     openingstock * sellingPrice - (openingstock * costPrice);
                     // -----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ class _ProfitState extends State<Profit> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
-                        color: Color.fromARGB(255, 190, 209, 246),
+                        color: const Color.fromARGB(255, 190, 209, 246),
                         child: ListTile(
                           leading: Container(
                             height: 50,
@@ -76,7 +76,7 @@ class _ProfitState extends State<Profit> {
                                   : null,
                             ),
                           ),
-                          // trailing
+                    
                           title: Text(
                             stock.itemname!,
                             style: GoogleFonts.acme(
@@ -86,7 +86,7 @@ class _ProfitState extends State<Profit> {
                             'Profit Is : $totalProfit',
                             style: GoogleFonts.acme(),
                           ),
-                          textColor: Color.fromARGB(255, 255, 0, 0),
+                          textColor:const Color.fromARGB(255, 255, 0, 0),
                         ),
                       ),
                     ),

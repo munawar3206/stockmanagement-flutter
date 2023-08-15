@@ -13,6 +13,7 @@ class Update extends StatelessWidget {
   final _costPriceController = TextEditingController();
   final _openingStockController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     _initControllers();
@@ -33,7 +34,7 @@ class Update extends StatelessWidget {
             onPressed: () {
               _saveChanges(context); /*call update */
             },
-            child: Text(
+            child:const Text(
               "SAVE",
               style: TextStyle(color: Color.fromARGB(255, 0, 42, 255)),
             ),
@@ -79,8 +80,8 @@ class Update extends StatelessWidget {
 
   /*updating */
   void _initControllers() {
-    _itemNameController.text = stock.itemname ?? '';
-    _stallNumberController.text = stock.stallNo ?? '';
+    _itemNameController.text = stock.itemname!;
+    _stallNumberController.text = stock.stallNo!;
     _sellingPriceController.text = stock.sellingPrice.toString();
     _costPriceController.text = stock.costPrice.toString();
     _openingStockController.text = stock.openingStock.toString();
@@ -94,7 +95,7 @@ class Update extends StatelessWidget {
       stallNo: _stallNumberController.text,
       sellingPrice: int.tryParse(_sellingPriceController.text) ?? 0,
       costPrice: int.tryParse(_costPriceController.text) ?? 0,
-      openingStock: int.tryParse(_openingStockController.text),
+      openingStock: int.tryParse(_openingStockController.text) ?? 0,
       reorderStock: stock.reorderStock,
     );
 

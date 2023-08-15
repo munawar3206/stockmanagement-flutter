@@ -8,6 +8,8 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'package:stock/screens/profit.dart';
 
 class Bottom extends StatefulWidget {
+  const Bottom({super.key});
+
   @override
   _BottomState createState() => _BottomState();
 }
@@ -16,7 +18,7 @@ class _BottomState extends State<Bottom> {
   int _currentIndex = 0;
 
   final List<Widget> bottomBarPages = [
-    const Home(),
+   const Home(),
     Item(),
     const Add(),
     const Profit(),

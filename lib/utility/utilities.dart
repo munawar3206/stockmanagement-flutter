@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:stock/model/stock.dart';
+
 // stock calculation
 class StockUtils {
   final List<TextEditingController> quantityControllers;
@@ -30,13 +32,6 @@ class StockUtils {
     return totalQuantity;
   }
 
-  void restorePreviousQuantities(List<int> quantities) {
-    for (int i = 0; i < quantityControllers.length; i++) {
-      if (i < quantities.length) {
-        quantityControllers[i].text = quantities[i].toString();
-      }
-    }
-  }
 
   List<int> saveQuantities() {
     List<int> quantities = [];
@@ -47,6 +42,7 @@ class StockUtils {
     return quantities;
   }
 }
+
 // image
 class ImageUtils {
   static Future<XFile?> pickImage(ImageSource source) async {

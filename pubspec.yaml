@@ -37,9 +37,8 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   image_picker: ^1.0.2
-  path_provider: ^2.0.15
   lottie: ^2.6.0
- 
+  path_provider: ^2.0.15
   
 
 dev_dependencies:
@@ -70,7 +69,6 @@ flutter:
   assets:
     - asset/inventoware-logo1.png
     - asset/data.json
-    
     #   - images/a_dot_ham.jpeg
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware
