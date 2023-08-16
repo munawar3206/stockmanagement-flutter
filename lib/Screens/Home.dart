@@ -1,24 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:stock/Screens/Sub%20Screens/detail.dart';
 import 'package:stock/model/stock.dart';
 import 'item.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  List<Stock> recentlyAddedStocks = [];
-  @override
-  void initState() {
-    super.initState();
-    loadRecentlyAddedStocks();
-  }
+class Home extends StatelessWidget {
+  final ValueNotifier<List<Stock>> recentlyAddedStocksNotifier =
+      ValueNotifier<List<Stock>>([]);
 
   String getPresentDate() {
     DateTime now = DateTime.now();
@@ -29,11 +19,13 @@ class _HomeState extends State<Home> {
 
   void loadRecentlyAddedStocks() {
     Item item = Item();
-    recentlyAddedStocks = item.loadStocks().take(4).toList();
+    recentlyAddedStocksNotifier.value = item.loadStocks().take(4).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    loadRecentlyAddedStocks();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
@@ -184,7 +176,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 0, 20, 0),
               child: Row(
@@ -205,67 +197,89 @@ class _HomeState extends State<Home> {
                       fontSize: 16,
                     ),
                   ),
-                  // Icon(Icons.arrow_drop_down)
                 ],
               ),
             ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Container(
-                    color: const Color.fromARGB(255, 200, 209, 253),
+              child: ValueListenableBuilder<List<Stock>>(
+                valueListenable: recentlyAddedStocksNotifier,
+                builder: (context, stocks, _) {
+                  return Container(
+                    color: Color.fromARGB(255, 255, 255, 255),
                     width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.425,
-                    child: ListView.builder(
-                      itemCount: recentlyAddedStocks.length,
-                      itemBuilder: (context, index) {
-                        Stock stock = recentlyAddedStocks[index];
-                        return Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Card(
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                            child: ListTile(
-                              leading: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  image: stock.imagePath != null
-                                      ? DecorationImage(
-                                          image:
-                                              FileImage(File(stock.imagePath!)),
-                                          fit: BoxFit.cover,
-                                        )
-                                      : null,
+                    height: MediaQuery.of(context).size.height * 0.470,
+                    child: stocks.isEmpty
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Lottie.asset(
+                                'asset/animation_lldglary.json',
+                              ),
+                              // SizedBox(height: 5),
+                              const Text(
+                                'No recently added stocks!',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
                                 ),
                               ),
-                              title: Text(
-                                stock.itemname ?? '',
-                                style: GoogleFonts.acme(
-                                    color: const Color.fromARGB(255, 0, 0, 0)),
-                              ),
-                              subtitle: Text(
-                                stock.stallNo ?? '',
-                                style: GoogleFonts.acme(
-                                    color: const Color.fromARGB(255, 0, 0, 0)),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Detail(stock: stock),
+                            ],
+                          )
+                        : ListView.builder(
+                            itemCount: stocks.length,
+                            itemBuilder: (context, index) {
+                              Stock stock = stocks[index];
+                              return Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Card(
+                                  elevation: 10,
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  child: ListTile(
+                                    leading: Container(
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        image: stock.imagePath != null
+                                            ? DecorationImage(
+                                                image: FileImage(
+                                                    File(stock.imagePath!)),
+                                                fit: BoxFit.cover,
+                                              )
+                                            : null,
+                                      ),
+                                    ),
+                                    title: Text(
+                                      stock.itemname ?? '',
+                                      style: GoogleFonts.acme(
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0)),
+                                    ),
+                                    subtitle: Text(
+                                      stock.stallNo ?? '',
+                                      style: GoogleFonts.acme(
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0)),
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              Detail(stock: stock),
+                                        ),
+                                      );
+                                    },
+                                    shape: Border.all(),
                                   ),
-                                );
-                              },
-                            ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
             )
           ],

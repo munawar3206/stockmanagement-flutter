@@ -155,14 +155,17 @@ class _DetailState extends State<Detail> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Container(
-              color: Color.fromARGB(255, 200, 209, 253),
-              width: MediaQuery.of(context).size.width * 1.0,
-              height: MediaQuery.of(context).size.height * 0.425,
-              child: Barchart(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                color: const Color.fromARGB(255, 200, 209, 253),
+                width: MediaQuery.of(context).size.width * 1.0,
+                height: MediaQuery.of(context).size.height * 0.425,
+                child: Barchart(),
+              ),
             ),
           ],
         ),

@@ -122,7 +122,7 @@ class Item extends StatelessWidget {
                                   image: stock.imagePath != null
                                       ? DecorationImage(
                                           image:
-                                              FileImage(File(stock.imagePath!)),                                         
+                                              FileImage(File(stock.imagePath!)),
                                           fit: BoxFit.cover,
                                         )
                                       : null,
