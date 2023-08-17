@@ -48,20 +48,26 @@ class _ProfitState extends State<Profit> {
           Expanded(
             child: ListView.builder(
               itemCount: ProfitsList.length,
-              itemBuilder: (BuildContext context, int index) {                       
-                final stock = ProfitsList[index];                                    /*calculation for profit of stock */
+              itemBuilder: (BuildContext context, int index) {
+                final stock = ProfitsList[index];
                 final int openingstock = stock.openingStock!;
                 final int sellingPrice = stock.sellingPrice!;
+
                 final int costPrice = stock.costPrice!;
+                final int quantity = stock.quantity ?? 0;
                 final int totalProfit =
-                    openingstock * sellingPrice - (openingstock * costPrice);
-                    // -----------------------------------------------------------------------------
+                    (openingstock + quantity) * sellingPrice -
+                        ((openingstock + quantity) * costPrice);
+                Color profitColor = totalProfit >= 0
+                    ? const Color.fromARGB(255, 27, 118, 37)
+                    : const Color.fromARGB(255, 255, 17, 0);
+
                 return Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
-                        color: const Color.fromARGB(255, 190, 209, 246),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         child: ListTile(
                           leading: Container(
                             height: 50,
@@ -76,17 +82,21 @@ class _ProfitState extends State<Profit> {
                                   : null,
                             ),
                           ),
-                    
                           title: Text(
                             stock.itemname!,
                             style: GoogleFonts.acme(
                                 color: const Color.fromARGB(255, 0, 0, 0)),
                           ),
                           subtitle: Text(
-                            'Profit Is : $totalProfit',
-                            style: GoogleFonts.acme(),
+                            totalProfit >= 0
+                                ? 'Profit : ₹ ${totalProfit.toString()}'
+                                : 'Loss : ₹ ${(-totalProfit).toString()}',
+                            style: GoogleFonts.acme(
+                              color: profitColor,
+                            ),
                           ),
-                          textColor:const Color.fromARGB(255, 255, 0, 0),
+                          textColor: const Color.fromARGB(255, 255, 0, 0),
+                          shape: Border.all(),
                         ),
                       ),
                     ),
@@ -100,3 +110,4 @@ class _ProfitState extends State<Profit> {
     );
   }
 }
+ 

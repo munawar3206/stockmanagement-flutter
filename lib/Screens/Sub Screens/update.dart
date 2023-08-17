@@ -12,7 +12,7 @@ class Update extends StatelessWidget {
   final _sellingPriceController = TextEditingController();
   final _costPriceController = TextEditingController();
   final _openingStockController = TextEditingController();
-
+  final _soldStockController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class Update extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           'Edit Items',
           style: GoogleFonts.acme(
@@ -34,7 +34,7 @@ class Update extends StatelessWidget {
             onPressed: () {
               _saveChanges(context); /*call update */
             },
-            child:const Text(
+            child: const Text(
               "SAVE",
               style: TextStyle(color: Color.fromARGB(255, 0, 42, 255)),
             ),
@@ -68,6 +68,9 @@ class Update extends StatelessWidget {
                     SizedBox(height: 16),
                     _buildTextFormField('OpeningStock', _openingStockController,
                         TextInputType.number, '123....'),
+                    SizedBox(height: 16),
+                    _buildTextFormField('Sold Stock', _soldStockController,
+                        TextInputType.number, '123....'),
                   ],
                 ),
               ),
@@ -85,6 +88,7 @@ class Update extends StatelessWidget {
     _sellingPriceController.text = stock.sellingPrice.toString();
     _costPriceController.text = stock.costPrice.toString();
     _openingStockController.text = stock.openingStock.toString();
+    _soldStockController.text = stock.soldStock.toString();
   }
 
   void _saveChanges(BuildContext context) {
@@ -96,7 +100,7 @@ class Update extends StatelessWidget {
       sellingPrice: int.tryParse(_sellingPriceController.text) ?? 0,
       costPrice: int.tryParse(_costPriceController.text) ?? 0,
       openingStock: int.tryParse(_openingStockController.text) ?? 0,
-      reorderStock: stock.reorderStock,
+      soldStock: int.tryParse(_soldStockController.text) ?? 0,
     );
 
     Navigator.pop(context, updatedStock);
@@ -109,7 +113,7 @@ class Update extends StatelessWidget {
       children: [
         Text(
           labelText,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -118,7 +122,7 @@ class Update extends StatelessWidget {
           controller: controller,
           keyboardType: keyboardType,
           decoration: InputDecoration(
-            border: UnderlineInputBorder(),
+            border: const UnderlineInputBorder(),
             hintText: hintText,
           ),
         ),

@@ -17,9 +17,12 @@ class Home extends StatelessWidget {
     return formattedDate;
   }
 
-  void loadRecentlyAddedStocks() {
+  Future<void> loadRecentlyAddedStocks() async {
     Item item = Item();
-    recentlyAddedStocksNotifier.value = item.loadStocks().take(4).toList();
+    await item.loadStocks(); // Load the stocks
+
+    recentlyAddedStocksNotifier.value =
+        item.stocksNotifier.value.take(4).toList();
   }
 
   @override

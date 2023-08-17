@@ -14,7 +14,7 @@ class Stock {
   int? openingStock;
 
   @HiveField(3)
-  int? reorderStock;
+  int? soldStock;
 
   @HiveField(4)
   String? stallNo;
@@ -35,7 +35,7 @@ class Stock {
     this.id,
     required this.itemname,
     required this.openingStock,
-    required this.reorderStock,
+    required this.soldStock,
     required this.stallNo,
     this.sellingPrice,
     required this.costPrice,

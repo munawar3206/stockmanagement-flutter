@@ -16,7 +16,7 @@ class Add extends StatefulWidget {
 class _AddState extends State<Add> {
   final _itemNameController = TextEditingController();
   final _openingStockController = TextEditingController();
-  final _reorderStockController = TextEditingController();
+  final _soldStockController = TextEditingController();
   final _stallNumberController = TextEditingController();
   final _sellingPriceController = TextEditingController();
   final _costPriceController = TextEditingController();
@@ -106,7 +106,7 @@ class _AddState extends State<Add> {
                 imagePath: pickedImage?.path ?? '',
                 itemname: _itemNameController.text,
                 openingStock: int.parse(_openingStockController.text),
-                reorderStock: int.parse(_reorderStockController.text),
+                soldStock: int.parse(_soldStockController.text),
                 stallNo: _stallNumberController.text,
                 sellingPrice: int.parse(_sellingPriceController.text),
                 costPrice: int.parse(_costPriceController.text),
@@ -195,8 +195,8 @@ class _AddState extends State<Add> {
                       ),
                       const SizedBox(height: 16),
                       buildTextFormField(
-                        'Reorder Stock',
-                        _reorderStockController,
+                        'Sold Stock',
+                        _soldStockController,
                         TextInputType.number,
                         '0.0',
                         _numericValidator,

@@ -2,12 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/Screens/Sub%20Screens/barchart.dart';
-
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
+import 'package:stock/screens/Sub%20Screens/alertbox.dart';
 import 'package:stock/screens/Sub%20Screens/update.dart';
-
-import 'alertbox.dart';
 
 class Detail extends StatefulWidget {
   Stock stock;
@@ -129,10 +127,10 @@ class _DetailState extends State<Detail> {
                 }
               },
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                padding: EdgeInsets.all(15),
+                margin:const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                padding:const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 38, 0, 255),
+                  color:const Color.fromARGB(255, 38, 0, 255),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Row(
