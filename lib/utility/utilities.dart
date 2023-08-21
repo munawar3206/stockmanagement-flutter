@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 
-// stock calculation
+// stock calculation counter
 class StockUtils {
   final List<TextEditingController> quantityControllers;
 
@@ -59,5 +59,11 @@ class ImageUtils {
   }
 }
 
-
+// for date now
+ String getPresentDate() {
+    DateTime now = DateTime.now();
+    String formattedDate =
+        "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
+    return formattedDate;
+  }
 

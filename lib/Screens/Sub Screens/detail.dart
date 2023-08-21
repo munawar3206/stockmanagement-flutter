@@ -33,7 +33,7 @@ class _DetailState extends State<Detail> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        iconTheme: IconThemeData(
+        iconTheme:const IconThemeData(
           color: Colors.black,
         ),
         actions: [
@@ -54,7 +54,7 @@ class _DetailState extends State<Detail> {
                 });
               }
             },
-            icon: Icon(Icons.edit),
+            icon:const Icon(Icons.edit),
           ),
         ],
       ),

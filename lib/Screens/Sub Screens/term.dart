@@ -14,9 +14,9 @@ class Term extends StatelessWidget {
           'Terms & Conditions',
           style: GoogleFonts.acme(color: Colors.black),
         ),
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme:const IconThemeData(color: Colors.black),
       ),
-      backgroundColor: Color.fromARGB(255, 222, 228, 255),
+      backgroundColor:const Color.fromARGB(255, 222, 228, 255),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(

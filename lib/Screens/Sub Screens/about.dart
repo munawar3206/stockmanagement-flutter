@@ -20,12 +20,12 @@ class About extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 222, 228, 255),
       body: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:  EdgeInsets.all(8.0),
           child: Column(
             children: [
               CircleAvatar(
-                child: Image(image: AssetImage('asset/inventoware-logo1.png')),
                 radius: 70,
+                child: Image(image: AssetImage('asset/inventoware-logo1.png')),
               ),
               SizedBox(
                 height: 20,

@@ -20,9 +20,9 @@ class Item extends StatelessWidget {
     return allStocks;
   }
 
-  Future<void> _deleteStock(int index) async {
-    stockRepository.deleteStock(index);
-    stocksNotifier.value.removeAt(index);
+  Future<void> _deleteStock(int id) async {
+    stockRepository.deleteStock(id);
+    stocksNotifier.value.removeAt(id);
     stocksNotifier.value = List.from(stocksNotifier.value);
   }
 
@@ -128,11 +128,14 @@ class Item extends StatelessWidget {
                                       : null,
                                 ),
                               ),
-                              title: Text(stock.itemname!),
+                              title: Text(
+                                stock.itemname!,
+                                style: GoogleFonts.acme(),
+                              ),
                               subtitle: Text(
                                 stock.stallNo!,
-                                style: const TextStyle(
-                                  color: Color.fromARGB(255, 0, 255, 4),
+                                style: GoogleFonts.acme(
+                                  color: Color.fromARGB(255, 2, 26, 93),
                                 ),
                               ),
                               onTap: () {

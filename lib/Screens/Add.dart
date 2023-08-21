@@ -14,6 +14,7 @@ class Add extends StatefulWidget {
 }
 
 class _AddState extends State<Add> {
+// controller
   final _itemNameController = TextEditingController();
   final _openingStockController = TextEditingController();
   final _soldStockController = TextEditingController();
@@ -26,8 +27,9 @@ class _AddState extends State<Add> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        // Image
         return AlertDialog(
-          title: Text('Choose From...'),
+          title:const Text('Pick Image From...'),
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -59,7 +61,7 @@ class _AddState extends State<Add> {
       },
     );
   }
-
+// Validation............
   String? _itemNameValidator(String? value) {
     if (value == null || value.isEmpty) {
       return '';
@@ -72,7 +74,7 @@ class _AddState extends State<Add> {
       return '';
     }
     if (int.tryParse(value) == null) {
-      return 'Please enter a valid number.';
+      return 'Please enter a valid number';
     }
     return null;
   }
@@ -248,8 +250,8 @@ class _AddState extends State<Add> {
           hintText: hintText,
           border: const UnderlineInputBorder(),
           errorText: validator != null ? validator(controller.text) : null,
-          errorStyle: TextStyle(
-            color: const Color.fromARGB(255, 20, 5, 4),
+          errorStyle:const TextStyle(
+            color:  Color.fromARGB(255, 20, 5, 4),
           )),
     );
   }

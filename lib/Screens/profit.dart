@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -15,15 +14,46 @@ class Profit extends StatefulWidget {
 class _ProfitState extends State<Profit> {
   final List<Stock> ProfitsList = [];
   final Box<Stock> _stockBox = Hive.box<Stock>('stockbox');
+  int totalProfit = 0;
+  int totalLoss = 0; // Add this for total loss calculation
 
   @override
   void initState() {
     super.initState();
     loadProfit();
+
+    calculateTotals(); // Call calculateTotals on initialization
+  }
+
+  void initstate() {
+    super.initState();
+    loadLoss();
+    calculateTotals();
   }
 
   void loadProfit() {
     ProfitsList.addAll(_stockBox.values.toList());
+  }
+
+  void loadLoss() {
+    ProfitsList.addAll(_stockBox.values.toList());
+  }
+
+  void calculateTotals() {
+    for (var stock in ProfitsList) {
+      final int openingstock = stock.openingStock!;
+      final int sellingPrice = stock.sellingPrice!;
+      final int costPrice = stock.costPrice!;
+      final int quantity = stock.quantity ?? 0;
+      final int itemProfit = (openingstock + quantity) * sellingPrice -
+          ((openingstock + quantity) * costPrice);
+      if (itemProfit >= 0) {
+        totalProfit += itemProfit;
+      } else {
+        totalLoss +=
+            -itemProfit; // Increment totalLoss for negative profits (losses)
+      }
+    }
   }
 
   @override
@@ -44,7 +74,6 @@ class _ProfitState extends State<Profit> {
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
       body: Column(
         children: [
-          // ------------------------------------------------------------------
           Expanded(
             child: ListView.builder(
               itemCount: ProfitsList.length,
@@ -52,13 +81,13 @@ class _ProfitState extends State<Profit> {
                 final stock = ProfitsList[index];
                 final int openingstock = stock.openingStock!;
                 final int sellingPrice = stock.sellingPrice!;
-
                 final int costPrice = stock.costPrice!;
                 final int quantity = stock.quantity ?? 0;
-                final int totalProfit =
+                final int itemProfit =
                     (openingstock + quantity) * sellingPrice -
                         ((openingstock + quantity) * costPrice);
-                Color profitColor = totalProfit >= 0
+                      
+                Color profitColor = itemProfit >= 0
                     ? const Color.fromARGB(255, 27, 118, 37)
                     : const Color.fromARGB(255, 255, 17, 0);
 
@@ -88,9 +117,9 @@ class _ProfitState extends State<Profit> {
                                 color: const Color.fromARGB(255, 0, 0, 0)),
                           ),
                           subtitle: Text(
-                            totalProfit >= 0
-                                ? 'Profit : ₹ ${totalProfit.toString()}'
-                                : 'Loss : ₹ ${(-totalProfit).toString()}',
+                            itemProfit >= 0
+                                ? 'Profit : ₹ ${itemProfit.toString()}'
+                                : 'Loss : ₹ ${(-itemProfit).toString()}',
                             style: GoogleFonts.acme(
                               color: profitColor,
                             ),
@@ -110,4 +139,3 @@ class _ProfitState extends State<Profit> {
     );
   }
 }
- 

@@ -32,7 +32,7 @@ class Update extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              _saveChanges(context); /*call update */
+              _saveChanges(context); /*callback update */
             },
             child: const Text(
               "SAVE",
@@ -56,19 +56,19 @@ class Update extends StatelessWidget {
                   children: [
                     _buildTextFormField('Item Name', _itemNameController,
                         TextInputType.text, 'Enter Item Name'),
-                    SizedBox(height: 16),
+                   const SizedBox(height: 16),
                     _buildTextFormField('Stall No:', _stallNumberController,
                         TextInputType.text, 'A2...'),
-                    SizedBox(height: 16),
+                   const SizedBox(height: 16),
                     _buildTextFormField('Selling Price',
                         _sellingPriceController, TextInputType.number, '₹'),
-                    SizedBox(height: 16),
+                   const SizedBox(height: 16),
                     _buildTextFormField('Cost Price', _costPriceController,
                         TextInputType.number, '₹'),
-                    SizedBox(height: 16),
+                   const SizedBox(height: 16),
                     _buildTextFormField('OpeningStock', _openingStockController,
                         TextInputType.number, '123....'),
-                    SizedBox(height: 16),
+                   const SizedBox(height: 16),
                     _buildTextFormField('Sold Stock', _soldStockController,
                         TextInputType.number, '123....'),
                   ],

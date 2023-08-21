@@ -26,7 +26,7 @@ class _SettingState extends State<Setting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 207, 216, 255),
+        backgroundColor: const Color.fromARGB(255, 207, 216, 255),
         title: Text(
           "Settings",
           style: GoogleFonts.acme(
@@ -59,7 +59,7 @@ class _SettingState extends State<Setting> {
                       ),
                       title: Text(
                         pages.name,
-                        style:const TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
                         ),
@@ -83,7 +83,7 @@ class _SettingState extends State<Setting> {
       case 'Terms and Conditions':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>const Term()),
+          MaterialPageRoute(builder: (context) => const Term()),
         );
       case 'About':
         Navigator.push(

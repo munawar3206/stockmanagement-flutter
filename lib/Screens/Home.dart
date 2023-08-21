@@ -4,25 +4,71 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:stock/Screens/Sub%20Screens/detail.dart';
 import 'package:stock/model/stock.dart';
+import '../utility/utilities.dart';
 import 'item.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final ValueNotifier<List<Stock>> recentlyAddedStocksNotifier =
       ValueNotifier<List<Stock>>([]);
 
-  String getPresentDate() {
-    DateTime now = DateTime.now();
-    String formattedDate =
-        "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
-    return formattedDate;
+  int totalStockProfit = 0;
+  int totalStockLoss = 0;
+  int totalStockCost = 0;
+  @override
+  void initState() {
+    super.initState();
+
+    calculateTotalStockProfit();
+    calculateTotalStockLoss();
   }
 
   Future<void> loadRecentlyAddedStocks() async {
     Item item = Item();
-    await item.loadStocks(); // Load the stocks
+    item.loadStocks();
 
     recentlyAddedStocksNotifier.value =
         item.stocksNotifier.value.take(4).toList();
+
+    calculateTotalStockProfit();
+    calculateTotalStockLoss();
+    setState(() {});
+  }
+
+  void calculateTotalStockProfit() {
+    totalStockProfit = 0;
+    for (var stock in recentlyAddedStocksNotifier.value) {
+      final int openingStock = stock.openingStock!;
+      final int sellingPrice = stock.sellingPrice!;
+      final int costPrice = stock.costPrice!;
+      final int quantity = stock.quantity ?? 0;
+      final int itemProfit = (openingStock + quantity) * sellingPrice -
+          ((openingStock + quantity) * costPrice);
+      if (itemProfit >= 0) {
+        totalStockProfit += itemProfit;
+      }
+    }
+  }
+
+  void calculateTotalStockLoss() {
+    totalStockLoss = 0;
+    for (var stock in recentlyAddedStocksNotifier.value) {
+      final int openingStock = stock.openingStock!;
+      final int sellingPrice = stock.sellingPrice!;
+      final int costPrice = stock.costPrice!;
+      final int quantity = stock.quantity ?? 0;
+      final int itemProfit = (openingStock + quantity) * sellingPrice -
+          ((openingStock + quantity) * costPrice);
+      if (itemProfit < 0) {
+        totalStockLoss += -itemProfit;
+      }
+    }
   }
 
   @override
@@ -43,143 +89,141 @@ class Home extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Card(
-                  elevation: 8,
-                  color: const Color.fromARGB(255, 13, 5, 78),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      margin: const EdgeInsets.all(12.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Summary",
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                elevation: 8,
+                color: const Color.fromARGB(255, 13, 5, 78),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    margin: const EdgeInsets.all(12.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Summary",
+                                style: GoogleFonts.acme(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.white),
+                              ),
+                              const Spacer(),
+                              const Row(
+                                children: [
+                                  Icon(Icons.filter_alt, color: Colors.white),
+                                  Text(
+                                    "Today",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w800,
+                                        color: Colors.white),
+                                  ),
+                                  Icon(Icons.arrow_drop_down,
+                                      color: Colors.white),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Flex(
+                            direction: Axis.horizontal,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Total Expence",
                                   style: GoogleFonts.acme(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800,
                                       color: Colors.white),
                                 ),
-                                const Spacer(),
-                                const Row(
-                                  children: [
-                                    Icon(Icons.filter_alt, color: Colors.white),
-                                    Text(
-                                      "Today",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          color: Colors.white),
-                                    ),
-                                    Icon(Icons.arrow_drop_down,
-                                        color: Colors.white),
-                                  ],
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Total Stocks",
+                                  style: GoogleFonts.acme(
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white),
                                 ),
-                              ],
-                            ),
-                            SizedBox(height: 20),
-                            Flex(
-                              direction: Axis.horizontal,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "Sold Quantities",
-                                    style: GoogleFonts.acme(
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.white),
-                                  ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          const Flex(
+                            direction: Axis.horizontal,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text('252',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white)),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Text('50',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white)),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Flex(
+                            direction: Axis.horizontal,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Total Profit",
+                                  style: GoogleFonts.acme(
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "Purchased Quantities",
-                                    style: GoogleFonts.acme(
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.white),
-                                  ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Total Loss",
+                                  style: GoogleFonts.acme(
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white),
                                 ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            const Flex(
-                              direction: Axis.horizontal,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text('5',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white)),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text('10',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white)),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Flex(
-                              direction: Axis.horizontal,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "Earning (₹)",
-                                    style: GoogleFonts.acme(
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "Spending (₹)",
-                                    style: GoogleFonts.acme(
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            const Flex(
-                              direction: Axis.horizontal,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text('50',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white)),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text('100',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white)),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Flex(
+                            direction: Axis.horizontal,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text('₹ $totalStockProfit',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white)),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Text('₹ $totalStockLoss',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white)),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.fromLTRB(25, 0, 20, 0),
               child: Row(
@@ -194,7 +238,7 @@ class Home extends StatelessWidget {
                   const Spacer(),
                   const Icon(Icons.calendar_month_sharp),
                   Text(
-                    "${getPresentDate()}",
+                    getPresentDate(),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -210,7 +254,7 @@ class Home extends StatelessWidget {
                 valueListenable: recentlyAddedStocksNotifier,
                 builder: (context, stocks, _) {
                   return Container(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     width: MediaQuery.of(context).size.width * 1.0,
                     height: MediaQuery.of(context).size.height * 0.470,
                     child: stocks.isEmpty
@@ -220,7 +264,6 @@ class Home extends StatelessWidget {
                               Lottie.asset(
                                 'asset/animation_lldglary.json',
                               ),
-                              // SizedBox(height: 5),
                               const Text(
                                 'No recently added stocks!',
                                 style: TextStyle(
@@ -232,13 +275,14 @@ class Home extends StatelessWidget {
                           )
                         : ListView.builder(
                             itemCount: stocks.length,
-                            itemBuilder: (context, index) {
-                              Stock stock = stocks[index];
+                            itemBuilder: (context, id) {
+                              Stock stock = stocks[id];
                               return Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: Card(
                                   elevation: 10,
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
                                   child: ListTile(
                                     leading: Container(
                                       height: 50,
@@ -257,14 +301,13 @@ class Home extends StatelessWidget {
                                     title: Text(
                                       stock.itemname ?? '',
                                       style: GoogleFonts.acme(
-                                          color: const Color.fromARGB(
-                                              255, 0, 0, 0)),
+                                          color: Color.fromARGB(255, 0, 0, 0)),
                                     ),
                                     subtitle: Text(
                                       stock.stallNo ?? '',
                                       style: GoogleFonts.acme(
-                                          color: const Color.fromARGB(
-                                              255, 0, 0, 0)),
+                                          color:
+                                              Color.fromARGB(255, 18, 0, 137)),
                                     ),
                                     onTap: () {
                                       Navigator.push(

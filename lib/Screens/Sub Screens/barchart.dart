@@ -53,17 +53,17 @@ class accountState extends State<Barchart> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
+       const     Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                const Text(
+                 Text(
                   'Graph',
                   style: TextStyle(
                       color: Color.fromARGB(255, 0, 0, 0),
                       fontSize: 22,
                       fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
+                 SizedBox(
                   width: 4,
                 ),
               ],

@@ -16,11 +16,11 @@ class CustomAlertDialog {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Select Quantity"),
+            const  Text("Select Quantity"),
               IconButton(
                 onPressed: () => Navigator.of(ctx).pop(),
-                icon: Icon(Icons.close),
-                color: Color.fromARGB(255, 0, 0, 0),
+                icon:const Icon(Icons.close),
+                color:const Color.fromARGB(255, 0, 0, 0),
               ),
             ],
           ),
@@ -40,19 +40,19 @@ class CustomAlertDialog {
                       : null,
                 ),
               ),
-              SizedBox(height: 10),
+             const SizedBox(height: 10),
               Text(stock.itemname!),
-              SizedBox(height: 10),
+             const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
                     onPressed: () =>
                         stockUtils.decreaseStockQuantities(),
-                    icon: Icon(Icons.remove),
-                    color: Color.fromARGB(255, 0, 0, 0),
+                    icon:const Icon(Icons.remove),
+                    color:const Color.fromARGB(255, 0, 0, 0),
                   ),
-                  SizedBox(width: 10),
+                 const SizedBox(width: 10),
                   Expanded(
                     child: TextField(
                       controller: quantityController,
@@ -67,12 +67,12 @@ class CustomAlertDialog {
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
+                 const SizedBox(width: 10),
                   IconButton(
                     onPressed: () =>
                         stockUtils.increaseStockQuantities(),
                     icon:const Icon(Icons.add),
-                    color: Color.fromARGB(255, 0, 0, 0),
+                    color:const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ],
               ),
@@ -88,7 +88,7 @@ class CustomAlertDialog {
     Navigator.of(ctx).pop(stock);
   },
   style: ElevatedButton.styleFrom(
-    primary: Color.fromARGB(255, 0, 0, 255),
+    primary:const Color.fromARGB(255, 0, 0, 255),
   ),
              
               child: const Text(
