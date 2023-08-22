@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/Screens/Sub%20Screens/detail.dart';
+import 'package:stock/bottom.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 import 'package:lottie/lottie.dart';
@@ -17,6 +18,7 @@ class Item extends StatelessWidget {
   List<Stock> loadStocks() {
     final allStocks = stockRepository.getAllStock();
     stocksNotifier.value = allStocks;
+
     return allStocks;
   }
 
@@ -41,7 +43,18 @@ class Item extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Bottom(),
+                ));
+          },
+          icon:const Icon(Icons.arrow_back),
+          color: Colors.black,
+        ),
+       
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
         title: Text(
@@ -94,7 +107,7 @@ class Item extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Lottie.asset('asset/data.json'),
-                        SizedBox(
+                      const  SizedBox(
                           height: 5,
                         ),
                       ],

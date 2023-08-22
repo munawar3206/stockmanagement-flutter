@@ -20,7 +20,7 @@ class About extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 222, 228, 255),
       body: const SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           child: Column(
             children: [
               CircleAvatar(
@@ -33,37 +33,30 @@ class About extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  '''               Welcome to InventoWare, a powerful and comprehensive inventory stock management application developed by Munawar.With a mission to simplify inventory control for businesses of all sizes, InventoWare offers an array of advanced features to streamline your inventory processes, optimize stock levels, and enhance overall efficiency.''',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 0, 0, 0)),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  ''' \nInternship Experience at Bridgeon Solution Kakkanchery,Malappuram:
+                  '''               Welcome to InventoWare, a powerful and comprehensive inventory stock management application developed by Munawar.With a mission to simplify inventory control for businesses of all sizes, InventoWare offers an array of advanced features to streamline your inventory processes, optimize stock levels, and enhance overall efficiency.
+                  \nInternship Experience at Bridgeon Solution Kakkanchery,Malappuram:
               During my internship at Bridgeon Solution Kakkanchery, I had the privilege of honing my skills in inventory stock management and gaining hands-on experience in implementing cutting-edge solutions. Working alongside talented mentors and peers, I was exposed to the latest industry practices, which have greatly influenced the development of InventoWare. It was an enriching experience that helped me refine my expertise and passion for revolutionizing inventory management.''',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 0, 0, 0)),
                 ),
               ),
+             
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   '''\nStay Connected with Munawar:
                     
-              LinkedIn: 
-              Instagram: 
-              GitHub: 
-              Email: 
-              Website:
+              LinkedIn: Munawar E K
+              Instagram: munawar_ek
+              GitHub: munawar3206 
+              Email: munawarek313@gmail.com 
+              Website: munawar3206.github.io
                     
               Feel free to reach out to me through any of these channels. I'm always open to connecting with fellow professionals, collaborators, and enthusiasts. Let's build a vibrant network and share our passion for inventory stock management and technology! Looking forward to connecting with you soon.
               InventoWare is committed to empowering businesses to thrive by offering an all-in-one inventory management solution that saves time, reduces costs, and boosts productivity. Whether you are a small business owner or part of a large enterprise, join the InventoWare community today and experience the seamless and hassle-free way to manage your inventory efficiently. Let's embark on this transformative journey together!''',
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 0, 0, 0)),
                 ),
               )

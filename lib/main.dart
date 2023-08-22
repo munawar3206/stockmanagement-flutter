@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:stock/bottom.dart';
+
 import 'package:stock/model/stock.dart';
+
+import 'login.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -11,7 +13,7 @@ void main() async {
   }
 
   await Hive.openBox<Stock>('stockbox');
-  runApp( const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Bottom(),
+      home: LoginScreen(),
     );
   }
 }

@@ -61,6 +61,7 @@ class _AddState extends State<Add> {
       },
     );
   }
+  int totalExpense = 0; 
 // Validation............
   String? _itemNameValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -114,7 +115,9 @@ class _AddState extends State<Add> {
                 costPrice: int.parse(_costPriceController.text),
               );
               stockRepository.addStock(newStock);
-              Navigator.push(
+                int totalExpense = int.parse(_costPriceController.text* int.parse(_openingStockController.text));
+                Navigator.pop(context, totalExpense); // Pass the totalExpense back to home
+                Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => Item(),

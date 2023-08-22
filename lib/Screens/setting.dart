@@ -38,42 +38,40 @@ class _SettingState extends State<Setting> {
         elevation: 0,
       ),
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView.separated(
-            itemCount: itemsList.length,
-            separatorBuilder: (context, index) => const Divider(
-              color: Color.fromARGB(255, 177, 190, 251),
-              thickness: 2,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              final ItemData pages = itemsList[index];
-              return Padding(
-                padding: const EdgeInsets.all(1.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        pages.icon,
-                        color: Colors.black,
-                      ),
-                      title: Text(
-                        pages.name,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      onTap: () {
-                        _handleItemTap(pages);
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.separated(
+          itemCount: itemsList.length,
+          separatorBuilder: (context, index) => const Divider(
+            color: Color.fromARGB(255, 177, 190, 251),
+            thickness: 2,
           ),
+          itemBuilder: (BuildContext context, int index) {
+            final ItemData pages = itemsList[index];
+            return Padding(
+              padding: const EdgeInsets.all(1.0),
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: Icon(
+                      pages.icon,
+                      color: Colors.black,
+                    ),
+                    title: Text(
+                      pages.name,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    onTap: () {
+                      _handleItemTap(pages);
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

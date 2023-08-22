@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock/Screens/Sub%20Screens/detail.dart';
+
 import 'package:stock/model/stock.dart';
 import '../utility/utilities.dart';
 import 'item.dart';
@@ -17,27 +19,43 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final ValueNotifier<List<Stock>> recentlyAddedStocksNotifier =
       ValueNotifier<List<Stock>>([]);
-
+  int totalExpense = 0;
   int totalStockProfit = 0;
   int totalStockLoss = 0;
-  int totalStockCost = 0;
+  int totalStocks = 0;
+  String username = '';
   @override
   void initState() {
     super.initState();
+      loadRecentlyAddedStocks();
+      getUsername();
 
     calculateTotalStockProfit();
     calculateTotalStockLoss();
   }
 
+  Future<void> getUsername() async {
+    final sharedPref = await SharedPreferences.getInstance();
+    final savedUsername = sharedPref.getString('username');
+    setState(() {
+      username = savedUsername ?? ''; // Update the username state
+    });
+  }
   Future<void> loadRecentlyAddedStocks() async {
     Item item = Item();
     item.loadStocks();
 
     recentlyAddedStocksNotifier.value =
-        item.stocksNotifier.value.take(4).toList();
+        item.stocksNotifier.value.take(50).toList();
 
     calculateTotalStockProfit();
     calculateTotalStockLoss();
+    int expense = 0;
+    for (var stock in item.loadStocks()) {
+      expense += stock.costPrice! * stock.openingStock!;
+    }
+    totalExpense = expense;
+
     setState(() {});
   }
 
@@ -79,7 +97,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
         title: Text(
-          "Hello,  Merchant !",
+          "Hello,$username !",
           style: GoogleFonts.acme(
               fontWeight: FontWeight.bold, color: Colors.black),
         ),
@@ -129,49 +147,19 @@ class _HomeState extends State<Home> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          Flex(
-                            direction: Axis.horizontal,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "Total Expence",
-                                  style: GoogleFonts.acme(
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "Total Stocks",
-                                  style: GoogleFonts.acme(
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
+                          Text(
+                            "Total Expense",
+                            style: GoogleFonts.acme(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 25,
+                                color: Colors.white),
                           ),
                           const SizedBox(height: 10),
-                          const Flex(
-                            direction: Axis.horizontal,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Text('252',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white)),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text('50',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white)),
-                              ),
-                            ],
-                          ),
+                          Text('₹ $totalExpense',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 255, 255, 255))),
                           const SizedBox(height: 10),
                           Flex(
                             direction: Axis.horizontal,
@@ -184,6 +172,9 @@ class _HomeState extends State<Home> {
                                       fontWeight: FontWeight.w800,
                                       color: Colors.white),
                                 ),
+                              ),
+                              SizedBox(
+                                width: 195,
                               ),
                               Expanded(
                                 flex: 1,
@@ -206,6 +197,9 @@ class _HomeState extends State<Home> {
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         color: Colors.white)),
+                              ),
+                              SizedBox(
+                                width: 195,
                               ),
                               Expanded(
                                 flex: 1,
@@ -256,7 +250,7 @@ class _HomeState extends State<Home> {
                   return Container(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.470,
+                    height: MediaQuery.of(context).size.height * 1.0,
                     child: stocks.isEmpty
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,

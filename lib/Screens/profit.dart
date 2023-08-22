@@ -86,48 +86,42 @@ class _ProfitState extends State<Profit> {
                 final int itemProfit =
                     (openingstock + quantity) * sellingPrice -
                         ((openingstock + quantity) * costPrice);
-                      
+
                 Color profitColor = itemProfit >= 0
                     ? const Color.fromARGB(255, 27, 118, 37)
                     : const Color.fromARGB(255, 255, 17, 0);
 
                 return Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        child: ListTile(
-                          leading: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              image: stock.imagePath != null
-                                  ? DecorationImage(
-                                      image: FileImage(File(stock.imagePath!)),
-                                      fit: BoxFit.cover,
-                                    )
-                                  : null,
-                            ),
-                          ),
-                          title: Text(
-                            stock.itemname!,
-                            style: GoogleFonts.acme(
-                                color: const Color.fromARGB(255, 0, 0, 0)),
-                          ),
-                          subtitle: Text(
-                            itemProfit >= 0
-                                ? 'Profit : ₹ ${itemProfit.toString()}'
-                                : 'Loss : ₹ ${(-itemProfit).toString()}',
-                            style: GoogleFonts.acme(
-                              color: profitColor,
-                            ),
-                          ),
-                          textColor: const Color.fromARGB(255, 255, 0, 0),
-                          shape: Border.all(),
+                    ListTile(
+                      leading: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          image: stock.imagePath != null
+                              ? DecorationImage(
+                                  image: FileImage(File(stock.imagePath!)),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
                         ),
                       ),
+                      title: Text(
+                        stock.itemname!,
+                        style: GoogleFonts.acme(
+                            color: const Color.fromARGB(255, 0, 0, 0)),
+                      ),
+                      subtitle: Text(
+                        itemProfit >= 0
+                            ? 'Profit : ₹ ${itemProfit.toString()}'
+                            : 'Loss : ₹ ${(-itemProfit).toString()}',
+                        style: GoogleFonts.acme(
+                          color: profitColor,
+                        ),
+                      ),
+                      textColor: const Color.fromARGB(255, 255, 0, 0),
+                      shape: Border.all(),
                     ),
                   ],
                 );
