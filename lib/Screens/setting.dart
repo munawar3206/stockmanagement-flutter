@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:stock/Screens/Sub%20Screens/term.dart';
 import 'package:stock/screens/Sub%20Screens/about.dart';
+import 'package:stock/screens/Sub%20Screens/reset.dart';
 
 class Setting extends StatefulWidget {
   const Setting({Key? key}) : super(key: key);
@@ -94,6 +95,7 @@ class _SettingState extends State<Setting> {
       case 'Exit':
         exit(0);
       case 'Reset App':
+        resetDB(context);
         break;
       default:
         break;
