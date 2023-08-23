@@ -18,7 +18,7 @@ class _BottomState extends State<Bottom> {
   int _currentIndex = 0;
 
   final List<Widget> bottomBarPages = [
-    Home(),
+    const Home(),
     Item(),
     const Add(),
     const Profit(),

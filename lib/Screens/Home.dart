@@ -27,8 +27,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-      loadRecentlyAddedStocks();
-      getUsername();
+    loadRecentlyAddedStocks();
+    getUsername();
 
     calculateTotalStockProfit();
     calculateTotalStockLoss();
@@ -38,9 +38,10 @@ class _HomeState extends State<Home> {
     final sharedPref = await SharedPreferences.getInstance();
     final savedUsername = sharedPref.getString('username');
     setState(() {
-      username = savedUsername ?? ''; // Update the username state
+      username = savedUsername ?? '';
     });
   }
+
   Future<void> loadRecentlyAddedStocks() async {
     Item item = Item();
     item.loadStocks();
@@ -52,7 +53,7 @@ class _HomeState extends State<Home> {
     calculateTotalStockLoss();
     int expense = 0;
     for (var stock in item.loadStocks()) {
-      expense += stock.costPrice! * stock.openingStock!;
+      expense += (stock.costPrice! * stock.openingStock!);
     }
     totalExpense = expense;
 
@@ -97,7 +98,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
         title: Text(
-          "Hello,$username !",
+          "Hello, $username !",
           style: GoogleFonts.acme(
               fontWeight: FontWeight.bold, color: Colors.black),
         ),
@@ -131,19 +132,20 @@ class _HomeState extends State<Home> {
                                     color: Colors.white),
                               ),
                               const Spacer(),
-                              const Row(
-                                children: [
-                                  Icon(Icons.filter_alt, color: Colors.white),
-                                  Text(
-                                    "Today",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.white),
-                                  ),
-                                  Icon(Icons.arrow_drop_down,
-                                      color: Colors.white),
-                                ],
-                              ),
+
+                              // const Row(
+                              //   children: [
+                              //     Icon(Icons.filter_alt, color: Colors.white),
+                              //     Text(
+                              //       "Today",
+                              //       style: TextStyle(
+                              //           fontWeight: FontWeight.w800,
+                              //           color: Colors.white),
+                              //     ),
+                              //     Icon(Icons.arrow_drop_down,
+                              //         color: Colors.white),
+                              //   ],
+                              // ),
                             ],
                           ),
                           const SizedBox(height: 20),
@@ -174,7 +176,7 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                               SizedBox(
-                                width: 195,
+                                width: 150,
                               ),
                               Expanded(
                                 flex: 1,
@@ -199,7 +201,7 @@ class _HomeState extends State<Home> {
                                         color: Colors.white)),
                               ),
                               SizedBox(
-                                width: 195,
+                                width: 150,
                               ),
                               Expanded(
                                 flex: 1,
@@ -250,7 +252,7 @@ class _HomeState extends State<Home> {
                   return Container(
                     color: const Color.fromARGB(255, 255, 255, 255),
                     width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 1.0,
+                    height: MediaQuery.of(context).size.height * 0.500,
                     child: stocks.isEmpty
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,

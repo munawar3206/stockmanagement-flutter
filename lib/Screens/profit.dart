@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:lottie/lottie.dart';
+
 import 'package:stock/model/stock.dart';
 
 class Profit extends StatefulWidget {
@@ -15,14 +17,14 @@ class _ProfitState extends State<Profit> {
   final List<Stock> ProfitsList = [];
   final Box<Stock> _stockBox = Hive.box<Stock>('stockbox');
   int totalProfit = 0;
-  int totalLoss = 0; // Add this for total loss calculation
+  int totalLoss = 0;
 
   @override
   void initState() {
     super.initState();
     loadProfit();
 
-    calculateTotals(); // Call calculateTotals on initialization
+    calculateTotals();
   }
 
   void initstate() {
@@ -50,8 +52,7 @@ class _ProfitState extends State<Profit> {
       if (itemProfit >= 0) {
         totalProfit += itemProfit;
       } else {
-        totalLoss +=
-            -itemProfit; // Increment totalLoss for negative profits (losses)
+        totalLoss += -itemProfit;
       }
     }
   }
@@ -75,58 +76,68 @@ class _ProfitState extends State<Profit> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: ProfitsList.length,
-              itemBuilder: (BuildContext context, int index) {
-                final stock = ProfitsList[index];
-                final int openingstock = stock.openingStock!;
-                final int sellingPrice = stock.sellingPrice!;
-                final int costPrice = stock.costPrice!;
-                final int quantity = stock.quantity ?? 0;
-                final int itemProfit =
-                    (openingstock + quantity) * sellingPrice -
-                        ((openingstock + quantity) * costPrice);
-
-                Color profitColor = itemProfit >= 0
-                    ? const Color.fromARGB(255, 27, 118, 37)
-                    : const Color.fromARGB(255, 255, 17, 0);
-
-                return Column(
-                  children: [
-                    ListTile(
-                      leading: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          image: stock.imagePath != null
-                              ? DecorationImage(
-                                  image: FileImage(File(stock.imagePath!)),
-                                  fit: BoxFit.cover,
-                                )
-                              : null,
-                        ),
-                      ),
-                      title: Text(
-                        stock.itemname!,
-                        style: GoogleFonts.acme(
-                            color: const Color.fromARGB(255, 0, 0, 0)),
-                      ),
-                      subtitle: Text(
-                        itemProfit >= 0
-                            ? 'Profit : ₹ ${itemProfit.toString()}'
-                            : 'Loss : ₹ ${(-itemProfit).toString()}',
-                        style: GoogleFonts.acme(
-                          color: profitColor,
-                        ),
-                      ),
-                      textColor: const Color.fromARGB(255, 255, 0, 0),
-                      shape: Border.all(),
+            child: ProfitsList.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset('asset/animation_llm636yu.json'),
+                      ],
                     ),
-                  ],
-                );
-              },
-            ),
+                  )
+                : ListView.builder(
+                    itemCount: ProfitsList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final stock = ProfitsList[index];
+                      final int openingstock = stock.openingStock!;
+                      final int sellingPrice = stock.sellingPrice!;
+                      final int costPrice = stock.costPrice!;
+                      final int quantity = stock.quantity ?? 0;
+                      final int itemProfit =
+                          (openingstock + quantity) * sellingPrice -
+                              ((openingstock + quantity) * costPrice);
+
+                      Color profitColor = itemProfit >= 0
+                          ? const Color.fromARGB(255, 27, 118, 37)
+                          : const Color.fromARGB(255, 255, 17, 0);
+
+                      return Column(
+                        children: [
+                          ListTile(
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                image: stock.imagePath != null
+                                    ? DecorationImage(
+                                        image:
+                                            FileImage(File(stock.imagePath!)),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : null,
+                              ),
+                            ),
+                            title: Text(
+                              stock.itemname!,
+                              style: GoogleFonts.acme(
+                                  color: const Color.fromARGB(255, 0, 0, 0)),
+                            ),
+                            subtitle: Text(
+                              itemProfit >= 0
+                                  ? 'Profit : ₹ ${itemProfit.toString()}'
+                                  : 'Loss : ₹ ${(-itemProfit).toString()}',
+                              style: GoogleFonts.acme(
+                                color: profitColor,
+                              ),
+                            ),
+                            textColor: const Color.fromARGB(255, 255, 0, 0),
+                            shape: Border.all(),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
           ),
         ],
       ),

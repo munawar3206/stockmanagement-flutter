@@ -51,10 +51,9 @@ class Item extends StatelessWidget {
                   builder: (context) => const Bottom(),
                 ));
           },
-          icon:const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.black,
         ),
-       
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
         title: Text(
@@ -77,24 +76,34 @@ class Item extends StatelessWidget {
                 stocksNotifier.value = filteredStocks;
               },
               decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(45),
-                  borderSide: const BorderSide(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(45),
+                    borderSide: const BorderSide(
+                      color: Colors.black,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(45),
+                    borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: const Color.fromARGB(255, 255, 255, 255),
+                  hintText: 'Search Item Name...',
+                  prefixIcon: const Icon(Icons.search),
+                  prefixIconColor: const Color.fromARGB(255, 0, 0, 0),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Item(),
+                          ));
+                    },
+                    icon: Icon(Icons.close),
                     color: Colors.black,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(45),
-                  borderSide: const BorderSide(
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  ),
-                ),
-                filled: true,
-                fillColor: const Color.fromARGB(255, 255, 255, 255),
-                hintText: 'Search Item Name...',
-                prefixIcon: const Icon(Icons.search),
-                prefixIconColor: const Color.fromARGB(255, 0, 0, 0),
-              ),
+                  )),
             ),
           ),
           Expanded(
@@ -107,7 +116,7 @@ class Item extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Lottie.asset('asset/data.json'),
-                      const  SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                       ],

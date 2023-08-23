@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stock/screens/Item.dart';
@@ -29,7 +30,7 @@ class _AddState extends State<Add> {
       builder: (BuildContext context) {
         // Image
         return AlertDialog(
-          title:const Text('Pick Image From...'),
+          title: const Text('Pick Image From...'),
           content: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -61,7 +62,8 @@ class _AddState extends State<Add> {
       },
     );
   }
-  int totalExpense = 0; 
+
+  int totalExpense = 0;
 // Validation............
   String? _itemNameValidator(String? value) {
     if (value == null || value.isEmpty) {
@@ -102,33 +104,6 @@ class _AddState extends State<Add> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              final Stock newStock = Stock(
-                imagePath: pickedImage?.path ?? '',
-                itemname: _itemNameController.text,
-                openingStock: int.parse(_openingStockController.text),
-                soldStock: int.parse(_soldStockController.text),
-                stallNo: _stallNumberController.text,
-                sellingPrice: int.parse(_sellingPriceController.text),
-                costPrice: int.parse(_costPriceController.text),
-              );
-              stockRepository.addStock(newStock);
-                int totalExpense = int.parse(_costPriceController.text* int.parse(_openingStockController.text));
-                Navigator.pop(context, totalExpense); // Pass the totalExpense back to home
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Item(),
-                  ));
-            },
-            child: const Text(
-              'SAVE',
-              style: TextStyle(color: Color.fromARGB(255, 0, 13, 255)),
-            ),
-          ),
-        ],
         elevation: 0,
       ),
       body: Padding(
@@ -141,8 +116,9 @@ class _AddState extends State<Add> {
                   height: 100,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 207, 216, 255),
-                    border: Border.all(width: 8, color: Colors.white),
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    border: Border.all(
+                        width: 8, color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                   child: Stack(
                     children: [
@@ -158,9 +134,9 @@ class _AddState extends State<Add> {
                               onPressed: () {
                                 _pickImage();
                               },
-                              icon: const Icon(Icons.camera_enhance_sharp),
+                              icon: const Icon(Icons.camera),
                               iconSize: 68,
-                              color: const Color.fromARGB(255, 30, 110, 176),
+                              color: Color.fromARGB(255, 0, 0, 0),
                             )
                           : const SizedBox(),
                     ],
@@ -169,11 +145,9 @@ class _AddState extends State<Add> {
               ),
               const SizedBox(height: 10),
               pickedImage == null
-                  ? const Text(
+                  ? Text(
                       'Add Image',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 0, 140, 255),
-                      ),
+                      style: GoogleFonts.acme(color: Colors.black),
                     )
                   : const SizedBox(),
               const SizedBox(height: 20),
@@ -184,31 +158,38 @@ class _AddState extends State<Add> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       buildTextFormField(
-                        'Item Name',
-                        _itemNameController,
-                        TextInputType.text,
-                        'Enter Item Name',
-                        _itemNameValidator,
-                      ),
+                          'Item Name',
+                          _itemNameController,
+                          TextInputType.text,
+                          'Enter Item Name',
+                          _itemNameValidator,
+                          null),
                       const SizedBox(height: 16),
                       buildTextFormField(
                         'Opening Stock',
                         _openingStockController,
                         TextInputType.number,
-                        '0.0',
+                        '0',
                         _numericValidator,
+                        [FilteringTextInputFormatter.digitsOnly],
                       ),
                       const SizedBox(height: 16),
                       buildTextFormField(
                         'Sold Stock',
                         _soldStockController,
                         TextInputType.number,
-                        '0.0',
+                        '0',
                         _numericValidator,
+                        [FilteringTextInputFormatter.digitsOnly],
                       ),
                       const SizedBox(height: 16),
-                      buildTextFormField('Stall No:', _stallNumberController,
-                          TextInputType.text, 'A2...', _itemNameValidator),
+                      buildTextFormField(
+                          'Stall No:',
+                          _stallNumberController,
+                          TextInputType.text,
+                          'A2...',
+                          _itemNameValidator,
+                          null),
                       const SizedBox(height: 16),
                       buildTextFormField(
                         'Selling Price',
@@ -216,6 +197,7 @@ class _AddState extends State<Add> {
                         TextInputType.number,
                         '₹',
                         _numericValidator,
+                        [FilteringTextInputFormatter.digitsOnly],
                       ),
                       const SizedBox(height: 16),
                       buildTextFormField(
@@ -224,7 +206,35 @@ class _AddState extends State<Add> {
                         TextInputType.number,
                         '₹',
                         _numericValidator,
+                        [FilteringTextInputFormatter.digitsOnly],
                       ),
+                      Center(
+                        child: ElevatedButton(
+                            onPressed: () {
+                              final Stock newStock = Stock(
+                                imagePath: pickedImage?.path ?? '',
+                                itemname: _itemNameController.text,
+                                openingStock:
+                                    int.parse(_openingStockController.text),
+                                soldStock: int.parse(_soldStockController.text),
+                                stallNo: _stallNumberController.text,
+                                sellingPrice:
+                                    int.parse(_sellingPriceController.text),
+                                costPrice: int.parse(_costPriceController.text),
+                              );
+                              stockRepository.addStock(newStock);
+                              int totalExpense = int.parse(
+                                  _costPriceController.text *
+                                      int.parse(_openingStockController.text));
+                              Navigator.pop(context, totalExpense);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Item(),
+                                  ));
+                            },
+                            child: Text('SAVE')),
+                      )
                     ],
                   ),
                 ),
@@ -243,18 +253,19 @@ class _AddState extends State<Add> {
     TextInputType keyboardType,
     String hintText,
     String? Function(String?)? validator,
+    List<TextInputFormatter>? inputFormatters,
   ) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
-      // inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
           labelText: label,
           hintText: hintText,
-          border: const UnderlineInputBorder(),
+          border: const OutlineInputBorder(),
           errorText: validator != null ? validator(controller.text) : null,
-          errorStyle:const TextStyle(
-            color:  Color.fromARGB(255, 20, 5, 4),
+          errorStyle: const TextStyle(
+            color: Color.fromARGB(255, 20, 5, 4),
           )),
     );
   }
