@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock/Screens/Sub%20Screens/detail.dart';
-
 import 'package:stock/model/stock.dart';
+import 'package:stock/screens/fiilter.dart';
 import '../utility/utilities.dart';
 import 'item.dart';
 
@@ -17,19 +17,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool isWeekFilterSelected = false;
+  FilterOption selectedFilter = FilterOption.Day;
   final ValueNotifier<List<Stock>> recentlyAddedStocksNotifier =
       ValueNotifier<List<Stock>>([]);
   int totalExpense = 0;
   int totalStockProfit = 0;
   int totalStockLoss = 0;
-  int totalStocks = 0;
   String username = '';
+
   @override
   void initState() {
     super.initState();
     loadRecentlyAddedStocks();
     getUsername();
-
     calculateTotalStockProfit();
     calculateTotalStockLoss();
   }
@@ -53,7 +54,7 @@ class _HomeState extends State<Home> {
     calculateTotalStockLoss();
     int expense = 0;
     for (var stock in item.loadStocks()) {
-      expense += (stock.costPrice! * stock.openingStock!);
+      expense += (stock.costPrice! * (stock.openingStock! - stock.soldStock));
     }
     totalExpense = expense;
 
@@ -90,6 +91,31 @@ class _HomeState extends State<Home> {
     }
   }
 
+  void calculateWeekData() {
+    DateTime now = DateTime.now();
+
+    // Calculate the week's start and end dates
+    DateTime weekStart = now.subtract(Duration(days: now.weekday - 1));
+    DateTime weekEnd = weekStart.add(Duration(days: 6));
+
+    int totalWeekExpense = 0;
+    int totalWeekProfit = 0;
+    int totalWeekLoss = 0;
+
+    // for (var stock in recentlyAddedStocksNotifier.value) {
+    //   if (stock.date != null &&
+    //       stock.date!.isAfter(weekStart) &&
+    //       stock.date!.isBefore(weekEnd)) {
+    //     totalWeekExpense += (stock.costPrice! * (stock.openingStock! - stock.soldStock));
+    //     // Calculate profit and loss for the week and update totalWeekProfit and totalWeekLoss
+    //   }
+    // }
+
+    totalExpense = totalWeekExpense;
+    totalStockProfit = totalWeekProfit;
+    totalStockLoss = totalWeekLoss;
+  }
+
   @override
   Widget build(BuildContext context) {
     loadRecentlyAddedStocks();
@@ -112,7 +138,9 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(15.0),
               child: Card(
                 elevation: 8,
-                color: const Color.fromARGB(255, 13, 5, 78),
+                color: isWeekFilterSelected
+                    ? const Color.fromARGB(255, 0, 0, 0)
+                    : const Color.fromARGB(255, 13, 5, 78),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -132,20 +160,21 @@ class _HomeState extends State<Home> {
                                     color: Colors.white),
                               ),
                               const Spacer(),
-
-                              // const Row(
-                              //   children: [
-                              //     Icon(Icons.filter_alt, color: Colors.white),
-                              //     Text(
-                              //       "Today",
-                              //       style: TextStyle(
-                              //           fontWeight: FontWeight.w800,
-                              //           color: Colors.white),
-                              //     ),
-                              //     Icon(Icons.arrow_drop_down,
-                              //         color: Colors.white),
-                              //   ],
-                              // ),
+                              FilterDropdown(
+                                selectedFilter: selectedFilter,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedFilter = newValue!;
+                                    isWeekFilterSelected =
+                                        selectedFilter == FilterOption.Week;
+                                    if (selectedFilter == FilterOption.Week) {
+                                      // Calculate week data
+                                    } else {
+                                      // Calculate day data
+                                    }
+                                  });
+                                },
+                              ),
                             ],
                           ),
                           const SizedBox(height: 20),
@@ -175,7 +204,7 @@ class _HomeState extends State<Home> {
                                       color: Colors.white),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 150,
                               ),
                               Expanded(
@@ -200,7 +229,7 @@ class _HomeState extends State<Home> {
                                         fontWeight: FontWeight.w600,
                                         color: Colors.white)),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 150,
                               ),
                               Expanded(

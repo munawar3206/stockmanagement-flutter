@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-
 import 'package:stock/model/stock.dart';
-
 import 'login.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
 
   if (!Hive.isAdapterRegistered(StockAdapter().typeId)) {

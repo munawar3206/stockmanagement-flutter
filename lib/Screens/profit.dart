@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:lottie/lottie.dart';
 
 import 'package:stock/model/stock.dart';
 
@@ -65,7 +64,7 @@ class _ProfitState extends State<Profit> {
         elevation: 0,
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
         title: Text(
-          "Profit",
+          "Analyse",
           style: GoogleFonts.acme(
             fontWeight: FontWeight.bold,
             color: const Color.fromARGB(255, 0, 0, 0),
@@ -81,7 +80,10 @@ class _ProfitState extends State<Profit> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Lottie.asset('asset/animation_llm636yu.json'),
+                        Text(
+                          'No Data!',
+                          style: GoogleFonts.acme(),
+                        )
                       ],
                     ),
                   )

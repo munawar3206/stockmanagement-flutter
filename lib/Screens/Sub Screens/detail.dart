@@ -33,7 +33,7 @@ class _DetailState extends State<Detail> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        iconTheme:const IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
         ),
         actions: [
@@ -54,7 +54,7 @@ class _DetailState extends State<Detail> {
                 });
               }
             },
-            icon:const Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
           ),
         ],
       ),
@@ -85,7 +85,7 @@ class _DetailState extends State<Detail> {
                     ],
                   ),
                   subtitle: Text(
-                    'Stock:${widget.stock.openingStock! + (widget.stock.quantity ?? 0)}',
+                    'Stock:${widget.stock.openingStock! - (widget.stock.soldStock + (widget.stock.quantity ?? 0))}',
                   ),
                   trailing: Text(
                     'Stall No: ${widget.stock.stallNo}',
@@ -108,6 +108,14 @@ class _DetailState extends State<Detail> {
                     ],
                   ),
                   subtitle: Text('Actual Price: ${widget.stock.costPrice}'),
+                  trailing: Text(
+                    'SoldStocks: ${widget.stock.soldStock + (widget.stock.quantity ?? 0)} ',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 43, 0, 255),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -127,10 +135,11 @@ class _DetailState extends State<Detail> {
                 }
               },
               child: Container(
-                margin:const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                padding:const EdgeInsets.all(15),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color:const Color.fromARGB(255, 38, 0, 255),
+                  color: const Color.fromARGB(255, 38, 0, 255),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Row(
@@ -171,6 +180,3 @@ class _DetailState extends State<Detail> {
     );
   }
 }
-
-
-

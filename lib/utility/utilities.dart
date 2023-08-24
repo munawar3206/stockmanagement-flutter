@@ -66,4 +66,14 @@ class ImageUtils {
         "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
     return formattedDate;
   }
+class Utilities {
+ static int getCurrentWeekNumber() {
+    DateTime now = DateTime.now();
+    return getWeekNumber(now);
+  }
+
+  static int getWeekNumber(DateTime date) {
+    return date.difference(DateTime(date.year, 1, 1)).inDays ~/ 7 + 1;
+  }
+}
 

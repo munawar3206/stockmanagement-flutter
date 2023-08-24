@@ -14,7 +14,7 @@ class Stock {
   int? openingStock;
 
   @HiveField(3)
-  int? soldStock;
+  int soldStock;
 
   @HiveField(4)
   String? stallNo;
@@ -30,6 +30,8 @@ class Stock {
 
   @HiveField(8)
   int? quantity;
+
+  // DateTime? date;
 
   Stock({
     this.id,
