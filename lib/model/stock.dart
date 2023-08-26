@@ -14,7 +14,7 @@ class Stock {
   int? openingStock;
 
   @HiveField(3)
-  int soldStock;
+  int? soldStock;
 
   @HiveField(4)
   String? stallNo;
@@ -31,17 +31,17 @@ class Stock {
   @HiveField(8)
   int? quantity;
 
-  // DateTime? date;
+  DateTime? date;
 
-  Stock({
-    this.id,
-    required this.itemname,
-    required this.openingStock,
-    required this.soldStock,
-    required this.stallNo,
-    this.sellingPrice,
-    required this.costPrice,
-    this.imagePath,
-    this.quantity,
-  });
+  Stock(
+      {this.id,
+      required this.itemname,
+      required this.openingStock,
+      this.soldStock,
+      required this.stallNo,
+      required this.sellingPrice,
+      required this.costPrice,
+      this.imagePath,
+      this.quantity,
+      this.date});
 }

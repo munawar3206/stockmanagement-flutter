@@ -101,7 +101,7 @@ class Item extends StatelessWidget {
                             builder: (context) => Item(),
                           ));
                     },
-                    icon: Icon(Icons.close),
+                    icon: const Icon(Icons.close),
                     color: Colors.black,
                   )),
             ),
@@ -196,6 +196,8 @@ class Item extends StatelessWidget {
                                       );
                                     },
                                   );
+                                  stocksNotifier.value =
+                                      stockRepository.getAllStock();
                                 },
                                 icon: const Icon(Icons.delete),
                               ),

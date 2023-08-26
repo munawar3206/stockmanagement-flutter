@@ -1,25 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:stock/bottom.dart';
-import 'package:stock/model/stock.dart';
 
 //clear from db - reset
 
-Future<void> resetDB(
+Future<void> exitDB(
   BuildContext context,
 ) async {
   // ignore: use_build_context_synchronously
-  bool confirmReset = await showDialog(
+  await showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: Colors.black,
         title: const Text(
-          "Confirm Reset",
+          "Confirm Exit",
           style: TextStyle(color: Color.fromARGB(255, 255, 0, 0)),
         ),
         content: const Text(
-          "Are you sure you want to reset all settings",
+          "Are you sure you want to Exit App",
           style: TextStyle(color: Colors.white),
         ),
         actions: <Widget>[
@@ -29,16 +28,16 @@ Future<void> resetDB(
               style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
             ),
             onPressed: () {
-              Navigator.of(context).pop(false);
+              Navigator.of(context).pop();
             },
           ),
           TextButton(
             child: const Text(
-              "Reset",
+              "Exit",
               style: TextStyle(color: Color.fromARGB(255, 245, 0, 0)),
             ),
             onPressed: () {
-              Navigator.of(context).pop(true);
+              exit(0);
             },
           ),
         ],
@@ -46,14 +45,15 @@ Future<void> resetDB(
     },
   );
 
-  if (confirmReset == true) {
-    final stockbox = await Hive.openBox<Stock>('stockbox');
-    stockbox.clear();
+//   if (confirmReset == true) {
+//     final stockbox = await Hive.openBox<Stock>('stockbox');
+//     stockbox.clear();
 
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Bottom(),
-        ));
-  }
+//     Navigator.pushReplacement(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => const Bottom(),
+//         ));
+//   }
+// }
 }

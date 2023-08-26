@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock/Screens/Sub%20Screens/detail.dart';
 import 'package:stock/model/stock.dart';
-import 'package:stock/screens/fiilter.dart';
+
 import '../utility/utilities.dart';
 import 'item.dart';
 
@@ -18,7 +18,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isWeekFilterSelected = false;
-  FilterOption selectedFilter = FilterOption.Day;
+
   final ValueNotifier<List<Stock>> recentlyAddedStocksNotifier =
       ValueNotifier<List<Stock>>([]);
   int totalExpense = 0;
@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
     calculateTotalStockLoss();
     int expense = 0;
     for (var stock in item.loadStocks()) {
-      expense += (stock.costPrice! * (stock.openingStock! - stock.soldStock));
+      expense += (stock.costPrice! * (stock.openingStock!));
     }
     totalExpense = expense;
 
@@ -89,31 +89,6 @@ class _HomeState extends State<Home> {
         totalStockLoss += -itemProfit;
       }
     }
-  }
-
-  void calculateWeekData() {
-    DateTime now = DateTime.now();
-
-    // Calculate the week's start and end dates
-    DateTime weekStart = now.subtract(Duration(days: now.weekday - 1));
-    DateTime weekEnd = weekStart.add(Duration(days: 6));
-
-    int totalWeekExpense = 0;
-    int totalWeekProfit = 0;
-    int totalWeekLoss = 0;
-
-    // for (var stock in recentlyAddedStocksNotifier.value) {
-    //   if (stock.date != null &&
-    //       stock.date!.isAfter(weekStart) &&
-    //       stock.date!.isBefore(weekEnd)) {
-    //     totalWeekExpense += (stock.costPrice! * (stock.openingStock! - stock.soldStock));
-    //     // Calculate profit and loss for the week and update totalWeekProfit and totalWeekLoss
-    //   }
-    // }
-
-    totalExpense = totalWeekExpense;
-    totalStockProfit = totalWeekProfit;
-    totalStockLoss = totalWeekLoss;
   }
 
   @override
@@ -160,20 +135,17 @@ class _HomeState extends State<Home> {
                                     color: Colors.white),
                               ),
                               const Spacer(),
-                              FilterDropdown(
-                                selectedFilter: selectedFilter,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    selectedFilter = newValue!;
-                                    isWeekFilterSelected =
-                                        selectedFilter == FilterOption.Week;
-                                    if (selectedFilter == FilterOption.Week) {
-                                      // Calculate week data
-                                    } else {
-                                      // Calculate day data
-                                    }
-                                  });
-                                },
+                              const Icon(
+                                Icons.calendar_month_sharp,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                getPresentDate(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
                             ],
                           ),
@@ -261,14 +233,6 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   const Spacer(),
-                  const Icon(Icons.calendar_month_sharp),
-                  Text(
-                    getPresentDate(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -326,13 +290,14 @@ class _HomeState extends State<Home> {
                                     title: Text(
                                       stock.itemname ?? '',
                                       style: GoogleFonts.acme(
-                                          color: Color.fromARGB(255, 0, 0, 0)),
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0)),
                                     ),
                                     subtitle: Text(
                                       stock.stallNo ?? '',
                                       style: GoogleFonts.acme(
-                                          color:
-                                              Color.fromARGB(255, 18, 0, 137)),
+                                          color: const Color.fromARGB(
+                                              255, 18, 0, 137)),
                                     ),
                                     onTap: () {
                                       Navigator.push(

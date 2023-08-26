@@ -20,7 +20,7 @@ class StockAdapter extends TypeAdapter<Stock> {
       id: fields[0] as int?,
       itemname: fields[1] as String?,
       openingStock: fields[2] as int?,
-      soldStock: fields[3] as int,
+      soldStock: fields[3] as int?,
       stallNo: fields[4] as String?,
       sellingPrice: fields[5] as int?,
       costPrice: fields[6] as int?,

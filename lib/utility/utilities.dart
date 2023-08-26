@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 // stock calculation counter
 class StockUtils {
   final List<TextEditingController> quantityControllers;
@@ -10,7 +9,7 @@ class StockUtils {
 
   void decreaseStockQuantities() {
     for (var controller in quantityControllers) {
-      int quantity = int.tryParse(controller.text) ?? 0;
+      int quantity = int.tryParse(controller.text)!;
       quantity--;
       controller.text = quantity.toString();
     }
@@ -32,7 +31,7 @@ class StockUtils {
     return totalQuantity;
   }
 
- void restorePreviousQuantities(List<int> quantities) {
+  void restorePreviousQuantities(List<int> quantities) {
     for (int i = 0; i < quantityControllers.length; i++) {
       if (i < quantities.length) {
         quantityControllers[i].text = quantities[i].toString();
@@ -60,20 +59,10 @@ class ImageUtils {
 }
 
 // for date now
- String getPresentDate() {
-    DateTime now = DateTime.now();
-    String formattedDate =
-        "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
-    return formattedDate;
-  }
-class Utilities {
- static int getCurrentWeekNumber() {
-    DateTime now = DateTime.now();
-    return getWeekNumber(now);
-  }
-
-  static int getWeekNumber(DateTime date) {
-    return date.difference(DateTime(date.year, 1, 1)).inDays ~/ 7 + 1;
-  }
+String getPresentDate() {
+  DateTime now = DateTime.now();
+  String formattedDate =
+      "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
+  return formattedDate;
 }
 

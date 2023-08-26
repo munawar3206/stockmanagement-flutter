@@ -5,10 +5,10 @@ import 'package:stock/model/stock.dart';
 import '../../utility/utilities.dart';
 
 class CustomAlertDialog {
-  static Future<Stock?> showAlertDialog(
-      BuildContext context, Stock stock, TextEditingController quantityController) async {
+  static Future<Stock?> showAlertDialog(BuildContext context, Stock stock,
+      TextEditingController quantityController) async {
     final stockUtils = StockUtils([quantityController]);
-
+    quantityController.text = stock.quantity.toString();
     return showDialog<Stock>(
       context: context,
       builder: (ctx) {
@@ -16,11 +16,11 @@ class CustomAlertDialog {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            const  Text("Select Quantity"),
+              const Text("Select Quantity"),
               IconButton(
                 onPressed: () => Navigator.of(ctx).pop(),
-                icon:const Icon(Icons.close),
-                color:const Color.fromARGB(255, 0, 0, 0),
+                icon: const Icon(Icons.close),
+                color: const Color.fromARGB(255, 0, 0, 0),
               ),
             ],
           ),
@@ -40,19 +40,18 @@ class CustomAlertDialog {
                       : null,
                 ),
               ),
-             const SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(stock.itemname!),
-             const SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    onPressed: () =>
-                        stockUtils.decreaseStockQuantities(),
-                    icon:const Icon(Icons.remove),
-                    color:const Color.fromARGB(255, 0, 0, 0),
+                    onPressed: () => stockUtils.decreaseStockQuantities(),
+                    icon: const Icon(Icons.remove),
+                    color: const Color.fromARGB(255, 0, 0, 0),
                   ),
-                 const SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: TextField(
                       controller: quantityController,
@@ -61,36 +60,34 @@ class CustomAlertDialog {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       textAlign: TextAlign.center,
-                      decoration:const  InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: "0",
+                        hintText: "0.0",
                       ),
                     ),
                   ),
-                 const SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   IconButton(
-                    onPressed: () =>
-                        stockUtils.increaseStockQuantities(),
-                    icon:const Icon(Icons.add),
-                    color:const Color.fromARGB(255, 0, 0, 0),
+                    onPressed: () => stockUtils.increaseStockQuantities(),
+                    icon: const Icon(Icons.add),
+                    color: const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ],
               ),
             ],
           ),
           actions: <Widget>[
-   ElevatedButton(
-  onPressed: () {
-    int quantity = stockUtils.getTotalQuantity();
+            ElevatedButton(
+              onPressed: () {
+                int quantity = stockUtils.getTotalQuantity();
 
-    stock.quantity = quantity;
+                stock.quantity = quantity;
 
-    Navigator.of(ctx).pop(stock);
-  },
-  style: ElevatedButton.styleFrom(
-    primary:const Color.fromARGB(255, 0, 0, 255),
-  ),
-             
+                Navigator.of(ctx).pop(stock);
+              },
+              style: ElevatedButton.styleFrom(
+                primary: const Color.fromARGB(255, 0, 0, 255),
+              ),
               child: const Text(
                 "OK",
                 style: TextStyle(color: Colors.white),

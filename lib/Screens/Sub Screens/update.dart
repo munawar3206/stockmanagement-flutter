@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 
 class Update extends StatelessWidget {
   final Stock stock;
-
+  final StockRepository stockRepository = StockRepository();
   Update({super.key, required this.stock});
 
   final _itemNameController = TextEditingController();
@@ -12,7 +13,8 @@ class Update extends StatelessWidget {
   final _sellingPriceController = TextEditingController();
   final _costPriceController = TextEditingController();
   final _openingStockController = TextEditingController();
-  final _soldStockController = TextEditingController();
+  // final _soldStockController = TextEditingController();
+  final _quantityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,21 +58,19 @@ class Update extends StatelessWidget {
                   children: [
                     _buildTextFormField('Item Name', _itemNameController,
                         TextInputType.text, 'Enter Item Name'),
-                   const SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildTextFormField('Stall No:', _stallNumberController,
                         TextInputType.text, 'A2...'),
-                   const SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildTextFormField('Selling Price',
                         _sellingPriceController, TextInputType.number, '₹'),
-                   const SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildTextFormField('Cost Price', _costPriceController,
                         TextInputType.number, '₹'),
-                   const SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildTextFormField('OpeningStock', _openingStockController,
                         TextInputType.number, '123....'),
-                   const SizedBox(height: 16),
-                    _buildTextFormField('Sold Stock', _soldStockController,
-                        TextInputType.number, '123....'),
+                 
                   ],
                 ),
               ),
@@ -83,28 +83,33 @@ class Update extends StatelessWidget {
 
   /*updating */
   void _initControllers() {
-    _itemNameController.text = stock.itemname!;
-    _stallNumberController.text = stock.stallNo!;
-    _sellingPriceController.text = stock.sellingPrice.toString();
-    _costPriceController.text = stock.costPrice.toString();
-    _openingStockController.text = stock.openingStock.toString();
-    _soldStockController.text = stock.soldStock.toString();
-  }
+  _itemNameController.text = stock.itemname!;
+  _stallNumberController.text = stock.stallNo!;
+  _sellingPriceController.text = stock.sellingPrice.toString();
+  _costPriceController.text = stock.costPrice.toString();
+  _openingStockController.text = stock.openingStock.toString();
+  
+  _quantityController.text = stock.quantity.toString();
+}
 
-  void _saveChanges(BuildContext context) {
-    Stock updatedStock = Stock(
-      id: stock.id,
-      imagePath: stock.imagePath,
-      itemname: _itemNameController.text,
-      stallNo: _stallNumberController.text,
-      sellingPrice: int.tryParse(_sellingPriceController.text) ?? 0,
-      costPrice: int.tryParse(_costPriceController.text) ?? 0,
-      openingStock: int.tryParse(_openingStockController.text) ?? 0,
-      soldStock: int.tryParse(_soldStockController.text) ?? 0,
-    );
+void _saveChanges(BuildContext context) {
+  Stock updatedStock = Stock(
+    id: stock.id,
+    imagePath: stock.imagePath,
+    itemname: _itemNameController.text,
+    stallNo: _stallNumberController.text,
+    sellingPrice: int.tryParse(_sellingPriceController.text) ?? 0,
+    costPrice: int.tryParse(_costPriceController.text) ?? 0,
+    openingStock: int.tryParse(_openingStockController.text) ?? 0,
+    quantity: int.tryParse(_quantityController.text) ?? 0,
+  );
 
-    Navigator.pop(context, updatedStock);
-  }
+  stockRepository.updateStock(updatedStock);
+
+  Navigator.pop(context, updatedStock);
+}
+
+
 
   Widget _buildTextFormField(String labelText, TextEditingController controller,
       TextInputType keyboardType, String hintText) {

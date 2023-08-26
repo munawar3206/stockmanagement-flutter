@@ -14,18 +14,22 @@ class About extends StatelessWidget {
           style: GoogleFonts.acme(
               fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
       ),
-      backgroundColor: Color.fromARGB(255, 222, 228, 255),
+      backgroundColor: const Color.fromARGB(255, 222, 228, 255),
       body: const SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(15.0),
           child: Column(
             children: [
-              Image(
-                image: AssetImage('asset/inventoware-logo1.png'),
-                height: 150,
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 80,
+                child: Image(
+                  image: AssetImage('asset/inventoware-logo1.png'),
+                  height: 115,
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -46,11 +50,11 @@ During my internship at Bridgeon Solution Kakkanchery, I had the privilege of ho
                 child: Text(
                   '''Stay Connected with Munawar:
                     
-              LinkedIn: Munawar E K
-              Instagram: munawar_ek
-              GitHub: munawar3206 
-              Email: munawarek313@gmail.com 
-              Website: munawar3206.github.io
+    LinkedIn: Munawar E K
+    Instagram: munawar_ek
+    GitHub: munawar3206 
+    Email: munawarek313@gmail.com 
+    Website:https://munawar3206.github.io/personal-webpage/
 
 
 Feel free to reach out to me through any of these channels. I'm always open to connecting with fellow professionals, collaborators, and enthusiasts. Let's build a vibrant network and share our passion for inventory stock management and technology! Looking forward to connecting with you soon.

@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (_formKey.currentState!.validate()) {
                               checkLogin(context);
                             } else {
-                              print('empty value');
+                              print('Empty value');
                             }
                           },
                           style: ButtonStyle(

@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stock/Screens/Sub%20Screens/barchart.dart';
+
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 import 'package:stock/screens/Sub%20Screens/alertbox.dart';
+import 'package:stock/screens/Sub%20Screens/barchart.dart';
 import 'package:stock/screens/Sub%20Screens/update.dart';
 
 class Detail extends StatefulWidget {
@@ -46,7 +47,7 @@ class _DetailState extends State<Detail> {
                 ),
               );
 
-              if (updatedStock != null) {
+              if (updatedStock != 0) {
                 stockRepository.updateStock(updatedStock);
 
                 setState(() {
@@ -85,7 +86,7 @@ class _DetailState extends State<Detail> {
                     ],
                   ),
                   subtitle: Text(
-                    'Stock:${widget.stock.openingStock! - (widget.stock.soldStock + (widget.stock.quantity ?? 0))}',
+                    'Opening Stock:${widget.stock.openingStock??0 - widget.stock.quantity!}',
                   ),
                   trailing: Text(
                     'Stall No: ${widget.stock.stallNo}',
@@ -109,7 +110,7 @@ class _DetailState extends State<Detail> {
                   ),
                   subtitle: Text('Actual Price: ${widget.stock.costPrice}'),
                   trailing: Text(
-                    'SoldStocks: ${widget.stock.soldStock + (widget.stock.quantity ?? 0)} ',
+                    'SoldStocks: ${(widget.stock.quantity ?? 0)} ',
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -171,7 +172,11 @@ class _DetailState extends State<Detail> {
                 color: const Color.fromARGB(255, 200, 209, 253),
                 width: MediaQuery.of(context).size.width * 1.0,
                 height: MediaQuery.of(context).size.height * 0.425,
-                child: Barchart(),
+                child: PieChartWidget(
+                  soldQuantity: (widget.stock.openingStock ?? 0) -
+                      (widget.stock.quantity ?? 0),
+                  openingStockQuantity: (widget.stock.quantity ?? 0),
+                ),
               ),
             ),
           ],

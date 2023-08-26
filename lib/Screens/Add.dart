@@ -15,10 +15,10 @@ class Add extends StatefulWidget {
 }
 
 class _AddState extends State<Add> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 // controller
   final _itemNameController = TextEditingController();
   final _openingStockController = TextEditingController();
-  final _soldStockController = TextEditingController();
   final _stallNumberController = TextEditingController();
   final _sellingPriceController = TextEditingController();
   final _costPriceController = TextEditingController();
@@ -64,23 +64,6 @@ class _AddState extends State<Add> {
   }
 
   int totalExpense = 0;
-// Validation............
-  String? _itemNameValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return '';
-    }
-    return null;
-  }
-
-  String? _numericValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return '';
-    }
-    if (int.tryParse(value) == null) {
-      return 'Please enter a valid number';
-    }
-    return null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,9 +99,10 @@ class _AddState extends State<Add> {
                   height: 100,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     border: Border.all(
-                        width: 8, color: Color.fromARGB(255, 255, 255, 255)),
+                        width: 8,
+                        color: const Color.fromARGB(255, 255, 255, 255)),
                   ),
                   child: Stack(
                     children: [
@@ -136,7 +120,7 @@ class _AddState extends State<Add> {
                               },
                               icon: const Icon(Icons.camera),
                               iconSize: 68,
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              color: const Color.fromARGB(255, 0, 0, 0),
                             )
                           : const SizedBox(),
                     ],
@@ -154,88 +138,73 @@ class _AddState extends State<Add> {
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildTextFormField(
-                          'Item Name',
-                          _itemNameController,
-                          TextInputType.text,
-                          'Enter Item Name',
-                          _itemNameValidator,
-                          null),
-                      const SizedBox(height: 16),
-                      buildTextFormField(
-                        'Opening Stock',
-                        _openingStockController,
-                        TextInputType.number,
-                        '0',
-                        _numericValidator,
-                        [FilteringTextInputFormatter.digitsOnly],
-                      ),
-                      const SizedBox(height: 16),
-                      buildTextFormField(
-                        'Sold Stock',
-                        _soldStockController,
-                        TextInputType.number,
-                        '0',
-                        _numericValidator,
-                        [FilteringTextInputFormatter.digitsOnly],
-                      ),
-                      const SizedBox(height: 16),
-                      buildTextFormField(
-                          'Stall No:',
-                          _stallNumberController,
-                          TextInputType.text,
-                          'A2...',
-                          _itemNameValidator,
-                          null),
-                      const SizedBox(height: 16),
-                      buildTextFormField(
-                        'Selling Price',
-                        _sellingPriceController,
-                        TextInputType.number,
-                        '₹',
-                        _numericValidator,
-                        [FilteringTextInputFormatter.digitsOnly],
-                      ),
-                      const SizedBox(height: 16),
-                      buildTextFormField(
-                        'Cost Price',
-                        _costPriceController,
-                        TextInputType.number,
-                        '₹',
-                        _numericValidator,
-                        [FilteringTextInputFormatter.digitsOnly],
-                      ),
-                      Center(
-                        child: ElevatedButton(
-                            onPressed: () {
-                              final Stock newStock = Stock(
-                                imagePath: pickedImage?.path ?? '',
-                                itemname: _itemNameController.text,
-                                openingStock:
-                                    int.parse(_openingStockController.text),
-                                soldStock: int.parse(_soldStockController.text),
-                                stallNo: _stallNumberController.text,
-                                sellingPrice:
-                                    int.parse(_sellingPriceController.text),
-                                costPrice: int.parse(_costPriceController.text),
-                              );
-                              stockRepository.addStock(newStock);
-                              int totalExpense = int.parse(
-                                  _costPriceController.text *
-                                      int.parse(_openingStockController.text));
-                              Navigator.pop(context, totalExpense);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Item(),
-                                  ));
-                            },
-                            child: Text('SAVE')),
-                      )
-                    ],
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildTextFormField('Item Name', _itemNameController,
+                            TextInputType.text, 'Enter Item Name', null),
+                        const SizedBox(height: 16),
+                        buildTextFormField(
+                          'Opening Stock',
+                          _openingStockController,
+                          TextInputType.number,
+                          '0',
+                          [FilteringTextInputFormatter.digitsOnly],
+                        ),
+                        const SizedBox(height: 16),
+                        buildTextFormField('Stall No:', _stallNumberController,
+                            TextInputType.text, 'A2...', null),
+                        const SizedBox(height: 16),
+                        buildTextFormField(
+                          'Selling Price',
+                          _sellingPriceController,
+                          TextInputType.number,
+                          '₹',
+                          [FilteringTextInputFormatter.digitsOnly],
+                        ),
+                        const SizedBox(height: 16),
+                        buildTextFormField(
+                          'Cost Price',
+                          _costPriceController,
+                          TextInputType.number,
+                          '₹',
+                          [FilteringTextInputFormatter.digitsOnly],
+                        ),
+                        Center(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  final Stock newStock = Stock(
+                                    imagePath: pickedImage?.path ?? '',
+                                    itemname: _itemNameController.text,
+                                    openingStock:
+                                        int.parse(_openingStockController.text),
+                                    stallNo: _stallNumberController.text,
+                                    sellingPrice:
+                                        int.parse(_sellingPriceController.text),
+                                    costPrice:
+                                        int.parse(_costPriceController.text),
+                                  );
+
+                                  stockRepository.addStock(newStock);
+                                  int totalExpense = int.parse(
+                                      _costPriceController.text *
+                                          int.parse(
+                                              _openingStockController.text));
+                                  Navigator.pop(context, totalExpense);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Item(),
+                                      ));
+                                }
+                              },
+                              child: const Text('SAVE')),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -252,7 +221,6 @@ class _AddState extends State<Add> {
     TextEditingController controller,
     TextInputType keyboardType,
     String hintText,
-    String? Function(String?)? validator,
     List<TextInputFormatter>? inputFormatters,
   ) {
     return TextFormField(
@@ -260,13 +228,17 @@ class _AddState extends State<Add> {
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
-          labelText: label,
-          hintText: hintText,
-          border: const OutlineInputBorder(),
-          errorText: validator != null ? validator(controller.text) : null,
-          errorStyle: const TextStyle(
-            color: Color.fromARGB(255, 20, 5, 4),
-          )),
+        labelText: label,
+        hintText: hintText,
+        border: const OutlineInputBorder(),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Valid Values';
+        }
+
+        return null;
+      },
     );
   }
 }
