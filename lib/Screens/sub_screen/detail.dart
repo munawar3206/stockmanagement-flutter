@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 import 'package:stock/screens/sub_screen/alertbox.dart';
-import 'package:stock/screens/sub_screen/barchart.dart';
+import 'package:stock/screens/sub_screen/piechart.dart';
 import 'package:stock/screens/sub_screen/update.dart';
 
 class Detail extends StatefulWidget {
@@ -45,17 +45,14 @@ class _DetailState extends State<Detail> {
                   builder: (context) => Update(stock: widget.stock),
                 ),
               );
-
-              if (updatedStock != 0) {
-                stockRepository.updateStock(updatedStock);
-
-                setState(() {
-                  widget.stock = updatedStock;
-                });
-              }
-            },
-            icon: const Icon(Icons.edit),
-          ),
+if (updatedStock != null) {
+      setState(() {
+        widget.stock = updatedStock;
+      });
+    }
+  },
+  icon: const Icon(Icons.edit),
+),
         ],
       ),
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
@@ -122,18 +119,17 @@ class _DetailState extends State<Detail> {
             const SizedBox(
               height: 30,
             ),
-            GestureDetector(
-              onTap: () async {
-                Stock? updatedStock = await CustomAlertDialog.showAlertDialog(
-                    context, widget.stock, quantityController);
+           GestureDetector(
+  onTap: () async {
+    Stock? updatedStock = await CustomAlertDialog.showAlertDialog(
+        context, widget.stock, quantityController);
 
-                if (updatedStock != null) {
-                  setState(() {
-                    widget.stock = updatedStock;
-                  });
-                  stockRepository.updateStock(updatedStock);
-                }
-              },
+    if (updatedStock != null) {
+      setState(() {
+        widget.stock = updatedStock;
+      });
+    }
+  },
               child: Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 20),

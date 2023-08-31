@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:stock/bottom.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
@@ -10,7 +9,8 @@ import 'package:stock/screens/sub_screen/detail.dart';
 
 class Item extends StatelessWidget {
   final StockRepository stockRepository = StockRepository();
-  final ValueNotifier<List<Stock>> stocksNotifier = ValueNotifier([]);
+ ValueNotifier<List<Stock>> stocksNotifier = ValueNotifier<List<Stock>>([]);
+
 
   Item({Key? key}) : super(key: key) {
     loadStocks();
@@ -23,11 +23,10 @@ class Item extends StatelessWidget {
     return allStocks;
   }
 
-  Future<void> _deleteStock(int id) async {
-    stockRepository.deleteStock(id);
-    stocksNotifier.value.removeAt(id);
-    stocksNotifier.value = List.from(stocksNotifier.value);
-  }
+ void _deleteStock(int id) {
+  stockRepository.deleteStock(id);
+  stocksNotifier.value = stockRepository.getAllStock(); // Refresh the list
+}
 
   List<Stock> filterStocks(List<Stock> stocks, String query) {
     if (query.isEmpty) {
@@ -158,7 +157,7 @@ class Item extends StatelessWidget {
                               subtitle: Text(
                                 stock.stallNo!,
                                 style: GoogleFonts.acme(
-                                  color: Color.fromARGB(255, 2, 26, 93),
+                                  color:const Color.fromARGB(255, 2, 26, 93),
                                 ),
                               ),
                               onTap: () {
