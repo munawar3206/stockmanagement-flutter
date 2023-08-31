@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-//clear from db - reset
+
 
 Future<void> exitDB(
   BuildContext context,
@@ -45,15 +45,4 @@ Future<void> exitDB(
     },
   );
 
-//   if (confirmReset == true) {
-//     final stockbox = await Hive.openBox<Stock>('stockbox');
-//     stockbox.clear();
-
-//     Navigator.pushReplacement(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => const Bottom(),
-//         ));
-//   }
-// }
 }
