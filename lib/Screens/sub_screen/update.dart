@@ -47,7 +47,7 @@ class Update extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 222, 228, 255),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: SizedBox(
           height: 500,
           child: Card(
             child: Padding(

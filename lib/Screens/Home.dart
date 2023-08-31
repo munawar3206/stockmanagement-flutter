@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stock/Screens/Sub%20Screens/detail.dart';
+
 import 'package:stock/model/stock.dart';
+import 'package:stock/screens/sub_screen/detail.dart';
 
 import '../utility/utilities.dart';
 import 'item.dart';

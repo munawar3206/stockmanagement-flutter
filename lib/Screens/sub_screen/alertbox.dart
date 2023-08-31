@@ -86,7 +86,7 @@ class CustomAlertDialog {
                 Navigator.of(ctx).pop(stock);
               },
               style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 0, 0, 255),
+                backgroundColor: const Color.fromARGB(255, 0, 0, 255),
               ),
               child: const Text(
                 "OK",
