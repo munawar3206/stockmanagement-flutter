@@ -177,6 +177,7 @@ class _AddState extends State<Add> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   final Stock newStock = Stock(
+                                    
                                     imagePath: pickedImage?.path ?? '',
                                     itemname: _itemNameController.text,
                                     openingStock:

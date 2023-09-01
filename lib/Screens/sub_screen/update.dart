@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 
 class Update extends StatefulWidget {
@@ -18,7 +19,7 @@ class _UpdateState extends State<Update> {
   final _costPriceController = TextEditingController();
   final _openingStockController = TextEditingController();
   final _quantityController = TextEditingController();
-
+final StockRepository stockRepository = StockRepository();
   @override
   void initState() {
     super.initState();
@@ -26,8 +27,8 @@ class _UpdateState extends State<Update> {
   }
 
   void _initControllers() {
-    _itemNameController.text = widget.stock.itemname!;
-    _stallNumberController.text = widget.stock.stallNo!;
+    _itemNameController.text = widget.stock.itemname ?? '';
+    _stallNumberController.text = widget.stock.stallNo ?? '';
     _sellingPriceController.text = widget.stock.sellingPrice.toString();
     _costPriceController.text = widget.stock.costPrice.toString();
     _openingStockController.text = widget.stock.openingStock.toString();
@@ -35,27 +36,27 @@ class _UpdateState extends State<Update> {
   }
 
   void _saveChanges(BuildContext context) {
-  Stock updatedStock = Stock(
-    id: widget.stock.id,
-    imagePath: widget.stock.imagePath,
-    itemname: _itemNameController.text,
-    stallNo: _stallNumberController.text,
-    sellingPrice: int.tryParse(_sellingPriceController.text) ?? 0,
-    costPrice: int.tryParse(_costPriceController.text) ?? 0,
-    openingStock: int.tryParse(_openingStockController.text) ?? 0,
-    quantity: int.tryParse(_quantityController.text) ?? 0,
-  );
+    Stock updatedStock = Stock(
+      id: widget.stock.id,
+      imagePath: widget.stock.imagePath,
+      itemname: _itemNameController.text,
+      stallNo: _stallNumberController.text,
+      sellingPrice: int.tryParse(_sellingPriceController.text) ?? 0,
+      costPrice: int.tryParse(_costPriceController.text) ?? 0,
+      openingStock: int.tryParse(_openingStockController.text) ?? 0,
+      quantity: int.tryParse(_quantityController.text) ?? 0,
+    );
+     stockRepository.editStocks(updatedStock);
+    // Update the widget.stock object directly with the new values
+    widget.stock.itemname = updatedStock.itemname;
+    widget.stock.stallNo = updatedStock.stallNo;
+    widget.stock.sellingPrice = updatedStock.sellingPrice;
+    widget.stock.costPrice = updatedStock.costPrice;
+    widget.stock.openingStock = updatedStock.openingStock;
+    widget.stock.quantity = updatedStock.quantity;
 
-  // Update the widget.stock object directly with the new values
-  widget.stock.itemname = updatedStock.itemname;
-  widget.stock.stallNo = updatedStock.stallNo;
-  widget.stock.sellingPrice = updatedStock.sellingPrice;
-  widget.stock.costPrice = updatedStock.costPrice;
-  widget.stock.openingStock = updatedStock.openingStock;
-  widget.stock.quantity = updatedStock.quantity;
-
-  Navigator.pop(context, widget.stock);
-}
+    Navigator.pop(context, widget.stock);
+  }
 
   @override
   Widget build(BuildContext context) {
