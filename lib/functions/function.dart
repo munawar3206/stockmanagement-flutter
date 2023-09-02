@@ -12,13 +12,15 @@ class StockRepository {
     _stockBox.add(stock);
   }
 
-    void editStocks(Stock value) async {
-    final stockIndex = _stockBox.keys.cast<int>().toList().indexOf(value.id??0);
-    if (stockIndex != -1) {
-    await  _stockBox.put(value.id, value);
-      
+  void updateStock(Stock updatedStock) {
+    final int index = _stockBox.values
+        .toList()
+        .indexWhere((stock) => stock.id == updatedStock.id);
+    if (index != -1) {
+      _stockBox.putAt(index, updatedStock);
     }
   }
+
   void deleteStock(int index) {
     _stockBox.deleteAt(index);
     getAllStock();

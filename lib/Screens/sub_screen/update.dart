@@ -3,63 +3,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 
-class Update extends StatefulWidget {
-  late final Stock stock;
-
+class Update extends StatelessWidget {
+  final Stock stock;
+  final StockRepository stockRepository = StockRepository();
   Update({super.key, required this.stock});
 
-  @override
-  _UpdateState createState() => _UpdateState();
-}
-
-class _UpdateState extends State<Update> {
   final _itemNameController = TextEditingController();
   final _stallNumberController = TextEditingController();
   final _sellingPriceController = TextEditingController();
   final _costPriceController = TextEditingController();
   final _openingStockController = TextEditingController();
+  // final _soldStockController = TextEditingController();
   final _quantityController = TextEditingController();
-final StockRepository stockRepository = StockRepository();
-  @override
-  void initState() {
-    super.initState();
-    _initControllers();
-  }
-
-  void _initControllers() {
-    _itemNameController.text = widget.stock.itemname ?? '';
-    _stallNumberController.text = widget.stock.stallNo ?? '';
-    _sellingPriceController.text = widget.stock.sellingPrice.toString();
-    _costPriceController.text = widget.stock.costPrice.toString();
-    _openingStockController.text = widget.stock.openingStock.toString();
-    _quantityController.text = widget.stock.quantity.toString();
-  }
-
-  void _saveChanges(BuildContext context) {
-    Stock updatedStock = Stock(
-      id: widget.stock.id,
-      imagePath: widget.stock.imagePath,
-      itemname: _itemNameController.text,
-      stallNo: _stallNumberController.text,
-      sellingPrice: int.tryParse(_sellingPriceController.text) ?? 0,
-      costPrice: int.tryParse(_costPriceController.text) ?? 0,
-      openingStock: int.tryParse(_openingStockController.text) ?? 0,
-      quantity: int.tryParse(_quantityController.text) ?? 0,
-    );
-     stockRepository.editStocks(updatedStock);
-    // Update the widget.stock object directly with the new values
-    widget.stock.itemname = updatedStock.itemname;
-    widget.stock.stallNo = updatedStock.stallNo;
-    widget.stock.sellingPrice = updatedStock.sellingPrice;
-    widget.stock.costPrice = updatedStock.costPrice;
-    widget.stock.openingStock = updatedStock.openingStock;
-    widget.stock.quantity = updatedStock.quantity;
-
-    Navigator.pop(context, widget.stock);
-  }
 
   @override
   Widget build(BuildContext context) {
+    _initControllers();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 207, 216, 255),
@@ -110,7 +70,7 @@ final StockRepository stockRepository = StockRepository();
                     const SizedBox(height: 16),
                     _buildTextFormField('OpeningStock', _openingStockController,
                         TextInputType.number, '123....'),
-                    // ... Add more form fields here if needed
+                 
                   ],
                 ),
               ),
@@ -120,6 +80,36 @@ final StockRepository stockRepository = StockRepository();
       ),
     );
   }
+
+  /*updating */
+  void _initControllers() {
+  _itemNameController.text = stock.itemname!;
+  _stallNumberController.text = stock.stallNo!;
+  _sellingPriceController.text = stock.sellingPrice.toString();
+  _costPriceController.text = stock.costPrice.toString();
+  _openingStockController.text = stock.openingStock.toString();
+  
+  _quantityController.text = stock.quantity.toString();
+}
+
+void _saveChanges(BuildContext context) {
+  Stock updatedStock = Stock(
+    id: stock.id,
+    imagePath: stock.imagePath,
+    itemname: _itemNameController.text,
+    stallNo: _stallNumberController.text,
+    sellingPrice: int.tryParse(_sellingPriceController.text) ?? 0,
+    costPrice: int.tryParse(_costPriceController.text) ?? 0,
+    openingStock: int.tryParse(_openingStockController.text) ?? 0,
+    quantity: int.tryParse(_quantityController.text) ?? 0,
+  );
+
+  stockRepository.updateStock(updatedStock);
+
+  Navigator.pop(context, updatedStock);
+}
+
+
 
   Widget _buildTextFormField(String labelText, TextEditingController controller,
       TextInputType keyboardType, String hintText) {
