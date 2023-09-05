@@ -1,8 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
-
 
 Future<void> exitDB(
   BuildContext context,
@@ -44,5 +41,4 @@ Future<void> exitDB(
       );
     },
   );
-
 }

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:stock/bottom.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
@@ -158,7 +157,7 @@ class Item extends StatelessWidget {
                               subtitle: Text(
                                 stock.stallNo!,
                                 style: GoogleFonts.acme(
-                                  color: Color.fromARGB(255, 2, 26, 93),
+                                  color: const Color.fromARGB(255, 2, 26, 93),
                                 ),
                               ),
                               onTap: () {

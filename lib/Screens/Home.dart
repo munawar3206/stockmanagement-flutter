@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:stock/model/stock.dart';
 import 'package:stock/screens/sub_screen/detail.dart';
-
 import '../utility/utilities.dart';
 import 'item.dart';
 
@@ -19,14 +18,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isWeekFilterSelected = false;
-
   final ValueNotifier<List<Stock>> recentlyAddedStocksNotifier =
       ValueNotifier<List<Stock>>([]);
   int totalExpense = 0;
   int totalStockProfit = 0;
   int totalStockLoss = 0;
   String username = '';
-
   @override
   void initState() {
     super.initState();
