@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:stock/bottom.dart';
+
 import 'package:stock/model/stock.dart';
+import 'package:stock/widget/bottom.dart';
 
 //clear from db - reset
 

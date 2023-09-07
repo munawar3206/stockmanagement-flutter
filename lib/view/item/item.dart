@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stock/bottom.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 import 'package:lottie/lottie.dart';
-import 'package:stock/screens/sub_screen/detail.dart';
+import 'package:stock/view/item/detail/detail.dart';
+import 'package:stock/widget/bottom.dart';
 
 class Item extends StatelessWidget {
   final StockRepository stockRepository = StockRepository();

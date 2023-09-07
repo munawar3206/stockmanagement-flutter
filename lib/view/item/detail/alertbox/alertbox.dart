@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stock/model/stock.dart';
-import '../../utility/utilities.dart';
+import '../../../../utility/utilities.dart';
 
 class CustomAlertDialog {
   static Future<Stock?> showAlertDialog(BuildContext context, Stock stock,

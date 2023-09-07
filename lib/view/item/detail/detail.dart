@@ -5,9 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stock/functions/function.dart';
 import 'package:stock/model/stock.dart';
 
-import 'package:stock/screens/sub_screen/alertbox.dart';
-import 'package:stock/screens/sub_screen/piechart.dart';
-import 'package:stock/screens/sub_screen/update.dart';
+import 'package:stock/widget/alertbox.dart';
+import 'package:stock/view/item/detail/graph/piechart.dart';
+import 'package:stock/view/item/detail/update/update.dart';
 
 class Detail extends StatefulWidget {
   Stock stock;
@@ -15,7 +15,7 @@ class Detail extends StatefulWidget {
   Detail({super.key, required this.stock});
 
   @override
-  _DetailState createState() => _DetailState();
+  _DetailState createState() => _DetailState();                
 }
 
 class _DetailState extends State<Detail> {

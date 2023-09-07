@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:stock/screens/sub_screen/about.dart';
-import 'package:stock/screens/sub_screen/exit.dart';
-import 'package:stock/screens/sub_screen/reset.dart';
-import 'package:stock/screens/sub_screen/term.dart';
+import 'package:stock/view/setting/about/about.dart';
+import 'package:stock/view/setting/exit/exit.dart';
+import 'package:stock/view/setting/reset/reset.dart';
+import 'package:stock/view/setting/terms/term.dart';
 
 class Setting extends StatefulWidget {
   const Setting({Key? key}) : super(key: key);

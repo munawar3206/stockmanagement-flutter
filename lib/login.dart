@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stock/bottom.dart';
+import 'package:stock/widget/bottom.dart';
+
 
 final _usernameController = TextEditingController();
 String SAVE_KEY_NAME = 'save_key_name';

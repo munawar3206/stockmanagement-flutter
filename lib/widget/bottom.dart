@@ -5,7 +5,7 @@ import 'package:stock/Screens/Home.dart';
 import 'package:stock/Screens/Item.dart';
 import 'package:stock/Screens/setting.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
-import 'package:stock/screens/profit.dart';
+import 'package:stock/view/profit/profit.dart';
 
 class Bottom extends StatefulWidget {
   const Bottom({super.key});

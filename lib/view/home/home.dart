@@ -5,9 +5,9 @@ import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:stock/model/stock.dart';
-import 'package:stock/screens/sub_screen/detail.dart';
-import '../utility/utilities.dart';
-import 'item.dart';
+import 'package:stock/view/item/detail/detail.dart';
+import '../../utility/utilities.dart';
+import '../item/item.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
